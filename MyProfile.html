@@ -818,10 +818,29 @@
   </div>
 
   <!-- Android Toast Notification (With Profile) -->
-  <img id="androidToast" src="Assets/Android_Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; height: 56px; width: auto; display: none; z-index: 2000; pointer-events: none;" />
+  <div id="androidToast" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 2000; pointer-events: none; white-space: nowrap;">
+    <div id="androidToastInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; gap: 4px; padding: 12px 16px 12px 12px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
+      <div id="androidToastFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
+      <div id="androidToastFrostOverlay2" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); mix-blend-mode: overlay; border-radius: 14px; pointer-events: none;"></div>
+      <div style="position: relative; width: 32px; height: 32px; flex-shrink: 0; z-index: 1;">
+        <img src="Assets/Profile_Imgs/Profile_Imgs/Juliana.png" alt="Juliana" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block;" />
+      </div>
+      <div style="padding: 0 4px; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; line-height: 130%; color: #F6F6F6; font-weight: 600;">Switched to Juliana</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Android Toast Notification (Without Profile) -->
-  <img id="androidToastWithoutProfile" src="Assets/Without Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; height: 56px; width: auto; display: none; z-index: 2000; pointer-events: none;" />
+  <div id="androidToastWithoutProfile" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 2000; pointer-events: none; white-space: nowrap;">
+    <div id="androidToastNoProfileInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; padding: 12px 16px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
+      <div id="androidToastNoProfileFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
+      <div id="androidToastNoProfileFrostOverlay2" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); mix-blend-mode: overlay; border-radius: 14px; pointer-events: none;"></div>
+      <div style="padding: 0 4px; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; line-height: 130%; color: #F6F6F6; font-weight: 600;">Switched to Juliana</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Bottom Nav Bar -->
   <div class="bottom-navbar" id="bottomNavBar">
@@ -1109,7 +1128,7 @@
       platform: 'Android',
       trigger: 'Click / Double tap',
       switchTo: 'Profile → For You',
-      toast: 'No toast',
+      toast: 'Show toast',
       profilePic: 'User controlled',
       profilePicLocked: false,
       profilePicDefault: true,
@@ -1155,6 +1174,12 @@
   const fypBlackOverlay = document.getElementById('fypBlackOverlay');
   const androidToast = document.getElementById('androidToast');
   const androidToastWithoutProfile = document.getElementById('androidToastWithoutProfile');
+  const androidToastInner = document.getElementById('androidToastInner');
+  const androidToastFrostOverlay1 = document.getElementById('androidToastFrostOverlay1');
+  const androidToastFrostOverlay2 = document.getElementById('androidToastFrostOverlay2');
+  const androidToastNoProfileInner = document.getElementById('androidToastNoProfileInner');
+  const androidToastNoProfileFrostOverlay1 = document.getElementById('androidToastNoProfileFrostOverlay1');
+  const androidToastNoProfileFrostOverlay2 = document.getElementById('androidToastNoProfileFrostOverlay2');
   const profileIconHotspot = document.getElementById('profileIconHotspot');
   const scrollContent = document.querySelector('.scroll-content');
 
@@ -1192,6 +1217,14 @@
 
     // Update status bar for Android versions
     updateStatusBar(versionKey);
+
+    // Auto-enable full color toast for 实验版 versions
+    if (versionKey === 'ios-longpress' || versionKey === 'android-longpress') {
+      toastStyleToggle.checked = true;
+    } else {
+      toastStyleToggle.checked = false;
+    }
+    applyToastStyle();
 
     // Save to localStorage
     localStorage.setItem('selectedDemoVersion', versionKey);
@@ -1270,9 +1303,14 @@
       profilePictureToggleLabel.classList.add('disabled');
     } else {
       profilePictureToggleLabel.classList.remove('disabled');
-      // Load saved state or use default
-      const saved = localStorage.getItem(`profilePic-${currentDemoVersion}`);
-      profilePictureToggle.checked = saved !== null ? saved === 'true' : config.profilePicDefault;
+      // ios-doubleclick always defaults to profile picture ON regardless of saved state
+      if (currentDemoVersion === 'ios-doubleclick') {
+        profilePictureToggle.checked = true;
+        localStorage.setItem('profilePic-ios-doubleclick', 'true');
+      } else {
+        const saved = localStorage.getItem(`profilePic-${currentDemoVersion}`);
+        profilePictureToggle.checked = saved !== null ? saved === 'true' : config.profilePicDefault;
+      }
     }
   }
 
@@ -1564,35 +1602,33 @@
   function applyToastStyle() {
     const fullColor = toastStyleToggle.checked;
     localStorage.setItem('toastStyleFull', fullColor);
+    const allInners = [toastWithProfileInner, toastWithoutProfileInner, androidToastInner, androidToastNoProfileInner];
+    const allOverlays = [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2, androidToastFrostOverlay1, androidToastFrostOverlay2, androidToastNoProfileFrostOverlay1, androidToastNoProfileFrostOverlay2];
     if (fullColor) {
-      // Both toasts: solid #525252, no blur
-      [toastWithProfileInner, toastWithoutProfileInner].forEach(el => {
+      allInners.forEach(el => {
         el.style.background = '#525252';
         el.style.backdropFilter = 'none';
         el.style.webkitBackdropFilter = 'none';
       });
-      [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2].forEach(el => {
-        el.style.display = 'none';
-      });
+      allOverlays.forEach(el => { el.style.display = 'none'; });
     } else {
-      // Both toasts: frosted glass
-      [toastWithProfileInner, toastWithoutProfileInner].forEach(el => {
+      allInners.forEach(el => {
         el.style.background = 'rgba(37,37,37,0.7)';
         el.style.backdropFilter = 'blur(30px)';
         el.style.webkitBackdropFilter = 'blur(30px)';
       });
-      [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2].forEach(el => {
-        el.style.display = 'block';
-      });
+      allOverlays.forEach(el => { el.style.display = 'block'; });
     }
   }
 
-  // Restore saved toast style on load
-  const savedToastStyle = localStorage.getItem('toastStyleFull');
-  if (savedToastStyle === 'true') {
+  // Restore saved toast style on load; 实验版 always defaults to full color ON
+  if (currentDemoVersion === 'ios-longpress' || currentDemoVersion === 'android-longpress') {
     toastStyleToggle.checked = true;
-    applyToastStyle();
+  } else {
+    const savedToastStyle = localStorage.getItem('toastStyleFull');
+    toastStyleToggle.checked = savedToastStyle === 'true';
   }
+  applyToastStyle();
 
   toastStyleToggle.addEventListener('change', applyToastStyle);
 
