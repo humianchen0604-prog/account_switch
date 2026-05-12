@@ -790,7 +790,7 @@
   </div>
 
   <!-- Toast Notification (With Profile) -->
-  <div id="toastWithProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none; white-space: nowrap;">
+  <div id="toastWithProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 2000; pointer-events: none; white-space: nowrap;">
     <div id="toastWithProfileInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; gap: 4px; padding: 12px 16px 12px 12px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
       <!-- White overlay layer -->
       <div id="toastFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
@@ -808,7 +808,7 @@
   </div>
 
   <!-- Toast Notification (Without Profile) -->
-  <div id="toastWithoutProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none; white-space: nowrap;">
+  <div id="toastWithoutProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 2000; pointer-events: none; white-space: nowrap;">
     <div id="toastWithoutProfileInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; padding: 12px 16px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
       <div id="toastNoProfileFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
       <div id="toastNoProfileFrostOverlay2" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); mix-blend-mode: overlay; border-radius: 14px; pointer-events: none;"></div>
@@ -848,8 +848,39 @@
     <img src="Assets/Bottom Nav Bar.png" alt="Bottom Nav Bar" />
   </div>
 
+  <!-- Bottom Toast (With Profile) -->
+  <div id="bottomToastWithProfile" style="position: absolute; bottom: 91px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; display: none; z-index: 2000; pointer-events: none; width: 374px;">
+    <div id="bottomToastWithProfileInner" style="position: relative; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 12px 16px 12px 12px; border-radius: 14px; box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden; width: 100%; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); background-image: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.1) 100%), linear-gradient(90deg, rgba(37,37,37,0.7) 0%, rgba(37,37,37,0.7) 100%);">
+      <div id="bottomToastBlendOverlay" style="position: absolute; inset: 0; background-color: #9c9c9c; mix-blend-mode: overlay; pointer-events: none;"></div>
+      <div style="display: flex; justify-content: center; align-items: center; width: 32px; height: 32px; flex-shrink: 0; position: relative; z-index: 1;">
+        <img src="Assets/Profile_Imgs/Profile_Imgs/Juliana.png" alt="Juliana" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block;" />
+      </div>
+      <div style="flex: 1; min-width: 1px; position: relative; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 130%; color: #F6F6F6;">Switched to Juliana</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Toast (Without Profile) -->
+  <div id="bottomToastWithoutProfile" style="position: absolute; bottom: 91px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; display: none; z-index: 2000; pointer-events: none; width: 374px;">
+    <div id="bottomToastWithoutProfileInner" style="position: relative; display: flex; flex-direction: row; align-items: center; padding: 12px 16px; border-radius: 14px; box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden; width: 100%; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); background-image: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.1) 100%), linear-gradient(90deg, rgba(37,37,37,0.7) 0%, rgba(37,37,37,0.7) 100%);">
+      <div id="bottomToastNoProfileBlendOverlay" style="position: absolute; inset: 0; background-color: #9c9c9c; mix-blend-mode: overlay; pointer-events: none;"></div>
+      <div style="flex: 1; min-width: 1px; position: relative; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 130%; color: #F6F6F6;">Switched to Juliana</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Profile Icon Double-Click Hotspot -->
   <div id="profileIconHotspot" style="position: absolute; bottom: 34px; right: 0; width: 60px; height: 49px; padding: 2px 0 3px 0; flex-direction: column; align-items: center; gap: -1px; cursor: pointer; z-index: 1200;"></div>
+
+  <!-- Inbox Tab Hotspot (z-index above all FYP layers which go up to 1450) -->
+  <div id="inboxTabHotspot" style="position: absolute; bottom: 34px; right: 78.4px; width: 60px; height: 49px; cursor: pointer; z-index: 1900;"></div>
+
+  <!-- Inbox Screen Overlay (above FYP, below toasts at 2000) -->
+  <div id="inboxScreen" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1800;">
+    <img id="inboxScreenImg" src="Assets/Inbox.png" alt="Inbox" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+  </div>
 
   <!-- Home Indicator (node 20560-172382) -->
   <div class="home-indicator">
@@ -978,6 +1009,58 @@
 
   <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
 
+  <!-- Section 3b: Bottom Toast Toggle -->
+  <div style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="flex: 1;">
+        <div style="font-size: 13px; font-weight: 600; color: #000; line-height: 1.3;">Show bottom toast</div>
+        <div style="font-size: 11px; color: #999; margin-top: 2px;">Original design location</div>
+      </div>
+      <label id="bottomToastToggleLabel" style="position: relative; display: inline-block; width: 44px; height: 26px; cursor: pointer;">
+        <input type="checkbox" id="bottomToastToggle" style="opacity: 0; width: 0; height: 0;">
+        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; transition: .3s; border-radius: 26px;"></span>
+        <span style="position: absolute; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; pointer-events: none;"></span>
+      </label>
+    </div>
+    <!-- Delay slider — only visible when bottom toast is ON -->
+    <div id="bottomToastDelayRow" style="display: none; margin-top: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <span style="font-size: 11px; color: #666; font-weight: 500;">Appear delay</span>
+        <span id="bottomToastDelayLabel" style="font-size: 11px; font-weight: 600; color: #000;">0.0s</span>
+      </div>
+      <input type="range" id="bottomToastDelaySlider" min="0" max="5" step="0.5" value="0"
+        style="width: 100%; accent-color: #34A853; height: 4px; cursor: pointer;">
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: #CCC;">0s</span>
+        <span style="font-size: 10px; color: #CCC;">5s</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS-only controls wrapper -->
+  <div id="iosOnlyControls">
+    <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
+    <!-- Section 3c: iOS Profile Loading Duration -->
+    <div style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #000; line-height: 1.3;">Profile loading duration</div>
+          <div style="font-size: 11px; color: #999; margin-top: 2px;">Dual circle in Juliana's profile (iOS)</div>
+        </div>
+        <span id="profileLoadingDurationLabel" style="font-size: 11px; font-weight: 600; color: #000;">2.0s</span>
+      </div>
+      <input type="range" id="profileLoadingDurationSlider" min="0.5" max="6" step="0.5" value="2"
+        style="width: 100%; accent-color: #34A853; height: 4px; cursor: pointer;">
+      <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+        <span style="font-size: 10px; color: #CCC;">0.5s</span>
+        <span style="font-size: 10px; color: #CCC;">6s</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
   <!-- Section 4: Summary Info Box -->
   <div style="background: #F5F5F5; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; line-height: 1.6;">
     <div style="font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px; font-size: 11px;">This demo will show</div>
@@ -1073,6 +1156,9 @@
     #toastStyleToggle:not(:checked) + span { background-color: #CCCCCC; }
     #toastStyleToggle:checked + span { background-color: #34A853; }
     #toastStyleToggle:checked + span + span { transform: translateX(18px); }
+    #bottomToastToggle:not(:checked) + span { background-color: #CCCCCC; }
+    #bottomToastToggle:checked + span { background-color: #34A853; }
+    #bottomToastToggle:checked + span + span { transform: translateX(18px); }
 
     #profilePictureToggleLabel.disabled {
       opacity: 0.4;
@@ -1179,10 +1265,22 @@
   const androidToastFrostOverlay1 = document.getElementById('androidToastFrostOverlay1');
   const androidToastFrostOverlay2 = document.getElementById('androidToastFrostOverlay2');
   const androidToastNoProfileInner = document.getElementById('androidToastNoProfileInner');
+  const bottomToastToggle = document.getElementById('bottomToastToggle');
+  const bottomToastWithProfile = document.getElementById('bottomToastWithProfile');
+  const bottomToastWithoutProfile = document.getElementById('bottomToastWithoutProfile');
+  const bottomToastWithProfileInner = document.getElementById('bottomToastWithProfileInner');
+  const bottomToastWithoutProfileInner = document.getElementById('bottomToastWithoutProfileInner');
+  const bottomToastBlendOverlay = document.getElementById('bottomToastBlendOverlay');
+  const bottomToastNoProfileBlendOverlay = document.getElementById('bottomToastNoProfileBlendOverlay');
   const androidToastNoProfileFrostOverlay1 = document.getElementById('androidToastNoProfileFrostOverlay1');
   const androidToastNoProfileFrostOverlay2 = document.getElementById('androidToastNoProfileFrostOverlay2');
   const profileIconHotspot = document.getElementById('profileIconHotspot');
+  const inboxTabHotspot = document.getElementById('inboxTabHotspot');
+  const inboxScreen = document.getElementById('inboxScreen');
+  const inboxScreenImg = document.getElementById('inboxScreenImg');
   const scrollContent = document.querySelector('.scroll-content');
+  const profileLoadingDurationSlider = document.getElementById('profileLoadingDurationSlider');
+  const profileLoadingDurationLabel = document.getElementById('profileLoadingDurationLabel');
 
   // Initialize demo version selector
   function initializeDemoVersions() {
@@ -1227,54 +1325,74 @@
     }
     applyToastStyle();
 
+    // Show iOS-only controls only for iOS versions
+    const isAndroid = versionKey.includes('android');
+    document.getElementById('iosOnlyControls').style.display = isAndroid ? 'none' : 'block';
+    if (isAndroid) {
+      bottomToastDelayRow.style.display = 'none';
+    } else {
+      syncBottomToastUI();
+    }
+
     // Save to localStorage
     localStorage.setItem('selectedDemoVersion', versionKey);
   }
 
   // Handle FYP transition sequence for Android
   function handleFYPTransition() {
-    // Wait 6 seconds before starting the transition
+    // After 6 seconds: white flash, then FYP2 with circles + toast
     setTimeout(() => {
-      // Hide first FYP page
+      // Stop FYP1
       androidFYPPage.style.display = 'none';
-      androidFYPPage.style.opacity = '0';
-
-      // Stop and hide first video
       fypVideo.pause();
-      fypVideo.style.display = 'none';
 
-      // Show white overlay instantly at full opacity
+      // Instant white flash
       fypWhiteOverlay.style.display = 'block';
       fypWhiteOverlay.style.opacity = '1';
 
-      // Immediately start showing FYP2 page (but keep it hidden behind white)
+      // Prepare FYP2: black bg + FYP2.png + dual circles behind white
+      fypBlackOverlay.style.display = 'block';
+      fypDualCircles.style.display = 'flex';
+      fypVideo2.style.display = 'none';
+      fypVideo2.src = 'Assets/Android_FYP_Video2.mov';
+      fypVideo2.load();
       androidFYPPage2.style.display = 'flex';
       androidFYPPage2.style.flexDirection = 'column';
       androidFYPPage2.style.alignItems = 'center';
       androidFYPPage2.style.justifyContent = 'center';
       androidFYPPage2.style.opacity = '1';
 
-      // Show dual circles (animating) on top of Android_FYP2.png
-      fypDualCircles.style.display = 'flex';
-      // Prepare video2 but don't show yet (will be behind image)
-      fypVideo2.src = 'Assets/Android_FYP_Video2.mov';
-
-      // After 1 second, fade out white overlay to reveal FYP2 page with dual circles
+      // After 1s: white fades out → reveal FYP2 + show toast simultaneously
       setTimeout(() => {
         fypWhiteOverlay.style.opacity = '0';
-      }, 1000);
 
-      // After 2 more seconds (total 3s from white flash), hide dual circles and show video2
-      setTimeout(() => {
-        fypDualCircles.style.display = 'none';
-        fypBlackOverlay.style.display = 'none';
-        fypVideo2.style.display = 'block';
-        // Show Android toast after a brief delay to ensure video starts
-        setTimeout(() => {
+        // Show toast immediately as white fades
+        if (bottomToastToggle && bottomToastToggle.checked) {
+          showBottomToast();
+        } else {
           showAndroidToast();
-        }, 100);
-      }, 3000);
+        }
+
+        // After toast finishes (~3.6s): hide circles, show FYP video 2
+        setTimeout(() => {
+          fypDualCircles.style.display = 'none';
+          fypBlackOverlay.style.display = 'none';
+          fypVideo2.style.display = 'block';
+          fypVideo2.play();
+        }, 3600);
+      }, 1000);
     }, 6000);
+  }
+
+  // Directly launch Android FYP sequence (skip loading + profile page)
+  function startAndroidFYPSequence() {
+    closePanelModal();
+    scrollContent.style.display = 'none';
+    fypVideo.src = 'Assets/Androi_FYP_Video1.MOV';
+    fypVideo.load();
+    androidFYPPage.style.display = 'block';
+    fypVideo.play();
+    handleFYPTransition();
   }
 
   // Update status bar based on demo version
@@ -1336,6 +1454,10 @@
   updateStatusBar(currentDemoVersion);
   applyFullSettings();
 
+  // Show/hide iOS-only controls on load
+  const isAndroidOnLoad = currentDemoVersion.includes('android');
+  document.getElementById('iosOnlyControls').style.display = isAndroidOnLoad ? 'none' : 'block';
+
   // Apply full settings to the page
   function applyFullSettings() {
     const config = demoVersions[currentDemoVersion];
@@ -1396,51 +1518,37 @@
   };
 
   // Function to show toast
-  function showToast() {
-    const config = demoVersions[currentDemoVersion];
-    if (!config || !config.showToast) {
-      return;
-    }
-    const activeToast = profilePictureToggle.checked ? toastWithProfile : toastWithoutProfile;
-    activeToast.style.display = 'block';
-    // Appear animation: scale 0.8→1 (350ms spring), opacity 0→1 (150ms linear)
-    activeToast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
+  function animateTopToast(el) {
+    el.style.display = 'block';
+    el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
     setTimeout(() => {
-      activeToast.style.opacity = '1';
-      activeToast.style.transform = 'translateX(-50%) scale(1)';
+      el.style.opacity = '1';
+      el.style.transform = 'translateX(-50%) scale(1)';
     }, 10);
-    // Disappear animation: scale 1→0.8 (350ms spring), opacity 1→0 (100ms linear)
     setTimeout(() => {
-      activeToast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
-      activeToast.style.opacity = '0';
-      activeToast.style.transform = 'translateX(-50%) scale(0.8)';
+      el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-50%) scale(0.8)';
     }, 3150);
-    // Hide after animation completes
-    setTimeout(() => {
-      activeToast.style.display = 'none';
-    }, 3600);
+    setTimeout(() => { el.style.display = 'none'; }, 3600);
   }
 
-  // Function to show Android toast
+  function showToast() {
+    const config = demoVersions[currentDemoVersion];
+    if (!config || !config.showToast) return;
+    if (bottomToastToggle.checked) {
+      showBottomToast();
+    } else {
+      animateTopToast(profilePictureToggle.checked ? toastWithProfile : toastWithoutProfile);
+    }
+  }
+
   function showAndroidToast() {
-    const toast = currentDemoVersion === 'android-longpress' ? androidToastWithoutProfile : androidToast;
-    toast.style.display = 'block';
-    // Appear animation: scale 0.8→1 (350ms spring), opacity 0→1 (150ms linear)
-    toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
-    setTimeout(() => {
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateX(-50%) scale(1)';
-    }, 10);
-    // Disappear animation: scale 1→0.8 (350ms spring), opacity 1→0 (100ms linear)
-    setTimeout(() => {
-      toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(-50%) scale(0.8)';
-    }, 3150);
-    // Hide after animation completes
-    setTimeout(() => {
-      toast.style.display = 'none';
-    }, 3600);
+    if (bottomToastToggle.checked) {
+      showBottomToast();
+    } else {
+      animateTopToast(currentDemoVersion === 'android-longpress' ? androidToastWithoutProfile : androidToast);
+    }
   }
 
   // Function to switch profile
@@ -1478,30 +1586,16 @@
       loadingOverlay.style.opacity = '1';
       julianaContent2.style.display = 'none';
 
-      // After 2 seconds, hide loading and show Juliana_Content2.png
+      // Hide loading after user-configured duration, then show Juliana_Content2.png + toast
+      const loadingDurationMs = Math.round(parseFloat(profileLoadingDurationSlider.value) * 1000);
       setTimeout(() => {
         loadingOverlay.style.opacity = '0';
         setTimeout(() => {
           loadingOverlay.style.display = 'none';
           julianaContent2.style.display = 'block';
-
-          // For Android versions, preload video then show FYP page after 1.5 seconds
-          if (currentDemoVersion.includes('android')) {
-            // Preload video early so it's ready to play instantly
-            fypVideo.src = 'Assets/Androi_FYP_Video1.MOV';
-            fypVideo.load();
-            setTimeout(() => {
-              scrollContent.style.display = 'none';
-              androidFYPPage.style.display = 'block';
-              fypVideo.play();
-              // Start the FYP transition sequence
-              handleFYPTransition();
-            }, 1500);
-          }
+          showToast(); // fires only after dual circles finish
         }, 300);
-      }, 2000);
-
-      showToast();
+      }, loadingDurationMs);
     }
   }
 
@@ -1516,21 +1610,23 @@
   // Account row click handlers
   accountRowJuliana.addEventListener('click', function() {
     accountRowJuliana.style.backgroundColor = '#F5F5F5';
-    // Close panel and show loading screen simultaneously
-    closePanelModal();
-    julianaLoadingScreen.style.visibility = 'visible';
-    setTimeout(() => {
-      julianaLoadingScreen.style.opacity = '1';
-    }, 10);
-    // After 2 seconds, hide loading screen and switch profile
-    setTimeout(() => {
-      julianaLoadingScreen.style.opacity = '0';
+    setTimeout(() => { accountRowJuliana.style.backgroundColor = ''; }, 200);
+    if (currentDemoVersion.includes('android')) {
+      // Android: skip loading + profile, go directly to FYP
+      startAndroidFYPSequence();
+    } else {
+      // iOS: show loading screen → switch profile
+      closePanelModal();
+      julianaLoadingScreen.style.visibility = 'visible';
+      setTimeout(() => { julianaLoadingScreen.style.opacity = '1'; }, 10);
       setTimeout(() => {
-        julianaLoadingScreen.style.visibility = 'hidden';
-        switchProfile('juliana');
-        accountRowJuliana.style.backgroundColor = '';
-      }, 300);
-    }, 2000);
+        julianaLoadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          julianaLoadingScreen.style.visibility = 'hidden';
+          switchProfile('juliana');
+        }, 300);
+      }, 2000);
+    }
   });
 
   accountRowChristina.addEventListener('click', function() {
@@ -1546,8 +1642,14 @@
     // Double-click on avatar disabled - use profile icon in bottom nav
   });
 
-  // Shared switch trigger (loading → switch profile)
+  // Shared switch trigger
   function triggerSwitch() {
+    if (currentDemoVersion.includes('android')) {
+      // Android: go directly to FYP
+      startAndroidFYPSequence();
+      return;
+    }
+    // iOS: loading screen → switch profile
     julianaLoadingScreen.style.visibility = 'visible';
     setTimeout(() => { julianaLoadingScreen.style.opacity = '1'; }, 10);
     setTimeout(() => {
@@ -1588,6 +1690,14 @@
   bottomNavBar.addEventListener('click', makeNavClickHandler());
   profileIconHotspot.addEventListener('click', makeNavClickHandler());
 
+  // Inbox tab hotspot: instantly show correct Inbox image, pause all videos, keep toast on top
+  inboxTabHotspot.addEventListener('click', function() {
+    inboxScreenImg.src = currentDemoVersion.includes('android') ? 'Assets/Android_Inbox.png' : 'Assets/Inbox.png';
+    inboxScreen.style.display = 'block';
+    // Pause all playing videos
+    [fypVideo, fypVideo2].forEach(v => { if (v) { v.pause(); } });
+  });
+
   // Close panel
   function closePanelModal() {
     panelModal.classList.remove('active');
@@ -1601,24 +1711,91 @@
   function applyToastStyle() {
     const fullColor = toastStyleToggle.checked;
     localStorage.setItem('toastStyleFull', fullColor);
-    const allInners = [toastWithProfileInner, toastWithoutProfileInner, androidToastInner, androidToastNoProfileInner];
-    const allOverlays = [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2, androidToastFrostOverlay1, androidToastFrostOverlay2, androidToastNoProfileFrostOverlay1, androidToastNoProfileFrostOverlay2];
+    const topInners = [toastWithProfileInner, toastWithoutProfileInner, androidToastInner, androidToastNoProfileInner];
+    const bottomInners = [bottomToastWithProfileInner, bottomToastWithoutProfileInner];
+    const topOverlays = [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2, androidToastFrostOverlay1, androidToastFrostOverlay2, androidToastNoProfileFrostOverlay1, androidToastNoProfileFrostOverlay2];
+    const bottomBlendOverlays = [bottomToastBlendOverlay, bottomToastNoProfileBlendOverlay];
+    const frostGradient = 'linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.1) 100%), linear-gradient(90deg, rgba(37,37,37,0.7) 0%, rgba(37,37,37,0.7) 100%)';
     if (fullColor) {
-      allInners.forEach(el => {
+      topInners.forEach(el => {
+        el.style.backgroundImage = 'none';
         el.style.background = '#525252';
         el.style.backdropFilter = 'none';
         el.style.webkitBackdropFilter = 'none';
       });
-      allOverlays.forEach(el => { el.style.display = 'none'; });
+      bottomInners.forEach(el => {
+        el.style.backgroundImage = 'none';
+        el.style.background = '#525252';
+        el.style.backdropFilter = 'none';
+        el.style.webkitBackdropFilter = 'none';
+      });
+      topOverlays.forEach(el => { el.style.display = 'none'; });
+      bottomBlendOverlays.forEach(el => { el.style.display = 'none'; });
     } else {
-      allInners.forEach(el => {
+      // Top toasts: frosted glass
+      topInners.forEach(el => {
+        el.style.backgroundImage = 'none';
         el.style.background = 'rgba(37,37,37,0.7)';
         el.style.backdropFilter = 'blur(30px)';
         el.style.webkitBackdropFilter = 'blur(30px)';
       });
-      allOverlays.forEach(el => { el.style.display = 'block'; });
+      topOverlays.forEach(el => { el.style.display = 'block'; });
+      // Bottom toasts: 3-layer frosted glass (gradient fills + blur + blend overlay)
+      bottomInners.forEach(el => {
+        el.style.backgroundImage = frostGradient;
+        el.style.backgroundColor = '';
+        el.style.backdropFilter = 'blur(30px)';
+        el.style.webkitBackdropFilter = 'blur(30px)';
+      });
+      bottomBlendOverlays.forEach(el => { el.style.display = 'block'; });
     }
   }
+
+  // Show bottom toast with motion spec animation + configurable delay
+  function showBottomToast() {
+    const delayMs = Math.round(parseFloat(bottomToastDelaySlider.value) * 1000);
+    const useProfile = profilePictureToggle.checked;
+    const toast = useProfile ? bottomToastWithProfile : bottomToastWithoutProfile;
+    setTimeout(() => {
+      toast.style.display = 'block';
+      toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
+      setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+      }, 10);
+      setTimeout(() => {
+        toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+      }, 3150);
+      setTimeout(() => {
+        toast.style.display = 'none';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+      }, 3600);
+    }, delayMs);
+  }
+
+  const bottomToastDelayRow = document.getElementById('bottomToastDelayRow');
+  const bottomToastDelaySlider = document.getElementById('bottomToastDelaySlider');
+  const bottomToastDelayLabel = document.getElementById('bottomToastDelayLabel');
+
+  function updateDelayLabel() {
+    bottomToastDelayLabel.textContent = parseFloat(bottomToastDelaySlider.value).toFixed(1) + 's';
+  }
+
+  function syncBottomToastUI() {
+    bottomToastDelayRow.style.display = bottomToastToggle.checked ? 'block' : 'none';
+  }
+
+  bottomToastToggle.addEventListener('change', function() {
+    localStorage.setItem('showBottomToast', this.checked);
+    syncBottomToastUI();
+  });
+
+  bottomToastDelaySlider.addEventListener('input', function() {
+    updateDelayLabel();
+    localStorage.setItem('bottomToastDelay', this.value);
+  });
 
   // Restore saved toast style on load; 实验版 always defaults to full color ON
   if (currentDemoVersion === 'ios-longpress' || currentDemoVersion === 'android-longpress') {
@@ -1630,6 +1807,25 @@
   applyToastStyle();
 
   toastStyleToggle.addEventListener('change', applyToastStyle);
+
+  // Bottom toast defaults to OFF; restore saved state
+  bottomToastToggle.checked = localStorage.getItem('showBottomToast') === 'true';
+  const savedDelay = localStorage.getItem('bottomToastDelay');
+  if (savedDelay !== null) bottomToastDelaySlider.value = savedDelay;
+  updateDelayLabel();
+  syncBottomToastUI();
+
+  // Profile loading duration slider
+  function updateProfileLoadingLabel() {
+    profileLoadingDurationLabel.textContent = parseFloat(profileLoadingDurationSlider.value).toFixed(1) + 's';
+  }
+  profileLoadingDurationSlider.addEventListener('input', function() {
+    updateProfileLoadingLabel();
+    localStorage.setItem('profileLoadingDuration', this.value);
+  });
+  const savedLoadingDuration = localStorage.getItem('profileLoadingDuration');
+  if (savedLoadingDuration !== null) profileLoadingDurationSlider.value = savedLoadingDuration;
+  updateProfileLoadingLabel();
 
   // Toast profile toggle
   profilePictureToggle.addEventListener('change', function() {
