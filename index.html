@@ -757,9 +757,10 @@
   </div>
 
   <!-- Android FYP Page -->
-  <div id="androidFYPPage" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; display: none; z-index: 1400; opacity: 1;">
-    <video id="fypVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none;" autoplay muted loop></video>
-    <img id="fypBackground" src="Assets/Android_FYP.png" alt="FYP" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+  <div id="androidFYPPage" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1400;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000000;"></div>
+    <video id="fypVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;" autoplay muted loop playsinline></video>
+    <img id="fypBackground" src="Assets/Android_FYP.png" alt="FYP" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; display: block;" />
   </div>
 
   <!-- White Overlay for FYP Transition -->
@@ -1484,17 +1485,15 @@
           loadingOverlay.style.display = 'none';
           julianaContent2.style.display = 'block';
 
-          // For Android versions, show FYP page after 1.5 seconds
+          // For Android versions, preload video then show FYP page after 1.5 seconds
           if (currentDemoVersion.includes('android')) {
+            // Preload video early so it's ready to play instantly
+            fypVideo.src = 'Assets/Androi_FYP_Video1.MOV';
+            fypVideo.load();
             setTimeout(() => {
-              // Hide profile content and show FYP page with video instantly
               scrollContent.style.display = 'none';
-              fypVideo.src = 'Assets/Androi_FYP_Video1.MOV';
-              fypVideo.style.display = 'block';
-              androidFYPPage.style.display = 'flex';
-              androidFYPPage.style.flexDirection = 'column';
-              androidFYPPage.style.alignItems = 'center';
-              androidFYPPage.style.justifyContent = 'center';
+              androidFYPPage.style.display = 'block';
+              fypVideo.play();
               // Start the FYP transition sequence
               handleFYPTransition();
             }, 1500);
