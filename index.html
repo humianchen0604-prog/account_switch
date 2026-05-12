@@ -790,12 +790,31 @@
   </div>
 
   <!-- Toast Notification (With Profile) -->
-  <img id="toastWithProfile" src="Assets/With Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; width: 213px; height: auto; display: none; z-index: 1001; pointer-events: none;" />
+  <div id="toastWithProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none; white-space: nowrap;">
+    <div id="toastWithProfileInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; gap: 4px; padding: 12px 16px 12px 12px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
+      <!-- White overlay layer -->
+      <div id="toastFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
+      <!-- Dark mix-blend overlay -->
+      <div id="toastFrostOverlay2" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); mix-blend-mode: overlay; border-radius: 14px; pointer-events: none;"></div>
+      <!-- Avatar 32×32 circular -->
+      <div style="position: relative; width: 32px; height: 32px; flex-shrink: 0; z-index: 1;">
+        <img src="Assets/Profile_Imgs/Profile_Imgs/Juliana.png" alt="Juliana" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; display: block;" />
+      </div>
+      <!-- Text -->
+      <div style="padding: 0 4px; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; line-height: 130%; color: #F6F6F6; font-weight: 600;">Switched to Juliana</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Toast Notification (Without Profile) -->
-  <div id="toastWithoutProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none;">
-    <div style="display: inline-flex; min-width: 120px; max-width: 358px; min-height: 48px; padding: 12px 16px; justify-content: center; align-items: center; gap: 8px; border-radius: 14px; box-shadow: 0 12px 50px 0 rgba(0, 0, 0, 0.15); background: #8D8D8D; color: #F6F6F6; font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 130%;">
-      Switched to Juliana
+  <div id="toastWithoutProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none; white-space: nowrap;">
+    <div id="toastWithoutProfileInner" style="position: relative; display: inline-flex; flex-direction: row; align-items: center; padding: 12px 16px; border-radius: 14px; background: rgba(37,37,37,0.7); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden;">
+      <div id="toastNoProfileFrostOverlay1" style="position: absolute; inset: 0; background: rgba(255,255,255,0.1); border-radius: 14px; pointer-events: none;"></div>
+      <div id="toastNoProfileFrostOverlay2" style="position: absolute; inset: 0; background: rgba(0,0,0,0.05); mix-blend-mode: overlay; border-radius: 14px; pointer-events: none;"></div>
+      <div style="padding: 0 4px; z-index: 1;">
+        <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; line-height: 130%; color: #F6F6F6; font-weight: 600;">Switched to Juliana</span>
+      </div>
     </div>
   </div>
 
@@ -923,7 +942,24 @@
 
   <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
 
-  <!-- Section 3: Summary Info Box -->
+  <!-- Section 3: Toast Style Toggle -->
+  <div style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="flex: 1;">
+        <div style="font-size: 13px; font-weight: 600; color: #000; line-height: 1.3;">Full color toast</div>
+        <div style="font-size: 11px; color: #999; margin-top: 2px;">No frosted glass effect</div>
+      </div>
+      <label id="toastStyleToggleLabel" style="position: relative; display: inline-block; width: 44px; height: 26px; cursor: pointer;">
+        <input type="checkbox" id="toastStyleToggle" style="opacity: 0; width: 0; height: 0;">
+        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; transition: .3s; border-radius: 26px;"></span>
+        <span style="position: absolute; content: ''; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; pointer-events: none;"></span>
+      </label>
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
+  <!-- Section 4: Summary Info Box -->
   <div style="background: #F5F5F5; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; line-height: 1.6;">
     <div style="font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px; font-size: 11px;">This demo will show</div>
     <div style="display: grid; grid-template-columns: auto 1fr; gap: 8px 12px;">
@@ -1015,6 +1051,9 @@
     #profilePictureToggle:not(:checked) + span { background-color: #CCCCCC; }
     #profilePictureToggle:checked + span { background-color: #34A853; }
     #profilePictureToggle:checked + span + span { transform: translateX(18px); }
+    #toastStyleToggle:not(:checked) + span { background-color: #CCCCCC; }
+    #toastStyleToggle:checked + span { background-color: #34A853; }
+    #toastStyleToggle:checked + span + span { transform: translateX(18px); }
 
     #profilePictureToggleLabel.disabled {
       opacity: 0.4;
@@ -1091,6 +1130,13 @@
   const accountRowChristina = document.getElementById('accountRowChristina');
   const toastWithProfile = document.getElementById('toastWithProfile');
   const toastWithoutProfile = document.getElementById('toastWithoutProfile');
+  const toastStyleToggle = document.getElementById('toastStyleToggle');
+  const toastWithProfileInner = document.getElementById('toastWithProfileInner');
+  const toastFrostOverlay1 = document.getElementById('toastFrostOverlay1');
+  const toastFrostOverlay2 = document.getElementById('toastFrostOverlay2');
+  const toastWithoutProfileInner = document.getElementById('toastWithoutProfileInner');
+  const toastNoProfileFrostOverlay1 = document.getElementById('toastNoProfileFrostOverlay1');
+  const toastNoProfileFrostOverlay2 = document.getElementById('toastNoProfileFrostOverlay2');
   const julianaLoadingScreen = document.getElementById('julianaLoadingScreen');
   const startBtn = document.getElementById('startBtn');
   const profilePictureToggle = document.getElementById('profilePictureToggle');
@@ -1514,6 +1560,42 @@
 
   // Close on overlay click
   panelOverlay.addEventListener('click', closePanelModal);
+
+  // Apply toast style (frosted glass vs full color)
+  function applyToastStyle() {
+    const fullColor = toastStyleToggle.checked;
+    localStorage.setItem('toastStyleFull', fullColor);
+    if (fullColor) {
+      // Both toasts: solid #525252, no blur
+      [toastWithProfileInner, toastWithoutProfileInner].forEach(el => {
+        el.style.background = '#525252';
+        el.style.backdropFilter = 'none';
+        el.style.webkitBackdropFilter = 'none';
+      });
+      [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2].forEach(el => {
+        el.style.display = 'none';
+      });
+    } else {
+      // Both toasts: frosted glass
+      [toastWithProfileInner, toastWithoutProfileInner].forEach(el => {
+        el.style.background = 'rgba(37,37,37,0.7)';
+        el.style.backdropFilter = 'blur(30px)';
+        el.style.webkitBackdropFilter = 'blur(30px)';
+      });
+      [toastFrostOverlay1, toastFrostOverlay2, toastNoProfileFrostOverlay1, toastNoProfileFrostOverlay2].forEach(el => {
+        el.style.display = 'block';
+      });
+    }
+  }
+
+  // Restore saved toast style on load
+  const savedToastStyle = localStorage.getItem('toastStyleFull');
+  if (savedToastStyle === 'true') {
+    toastStyleToggle.checked = true;
+    applyToastStyle();
+  }
+
+  toastStyleToggle.addEventListener('change', applyToastStyle);
 
   // Toast profile toggle
   profilePictureToggle.addEventListener('change', function() {
