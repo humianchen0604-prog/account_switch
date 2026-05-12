@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Container – Switch Account</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F0F0F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* ─── Panel Container ─────────────────────────────────── */
+    .panel-container {
+      width: 390px;
+      background: #FFFFFF;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+    }
+
+    /* ─── Navigation Bar ──────────────────────────────────── */
+    .nav-bar {
+      position: relative;
+      width: 390px;
+      height: 52px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      padding: 4px 6px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .nav-btn:active { background: rgba(0,0,0,0.06); }
+
+    .nav-btn svg { display: block; }
+
+    .nav-title-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .nav-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 22px;
+      color: #000000;
+      white-space: nowrap;
+    }
+
+    .nav-caret {
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    /* ─── Account Row ─────────────────────────────────────── */
+    .account-row {
+      width: 390px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      cursor: pointer;
+      position: relative;
+    }
+    .account-row:active { background: rgba(0,0,0,0.04); }
+
+    .account-row-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      background: #F2F2F2;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .avatar-stroke {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.12);
+      pointer-events: none;
+    }
+
+    /* Avatar placeholder (Add account) */
+    .avatar-placeholder {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Text block */
+    .account-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+    .account-nickname {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 19.5px;
+      color: #000000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .account-username {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 17px;
+      color: rgba(22, 24, 35, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Tick icon */
+    .tick-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #FE2C54;
+    }
+
+    /* Badge */
+    .badge {
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background: #FE2C54;
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+      flex-shrink: 0;
+    }
+
+    /* Unread dot (on avatar top-right) */
+    .avatar-unread-dot {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FE2C54;
+      border: 1.5px solid #FFFFFF;
+    }
+
+    /* ─── Profile Component (Single state) ───────────────── */
+    .profile-component {
+      margin: 12px 16px 16px;
+      padding: 12px;
+      border: 1px solid rgba(22, 24, 35, 0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile-avatar-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(22, 24, 35, 0.06);
+      border: 1px solid rgba(22, 24, 35, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+    .profile-name {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #000000;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .profile-username {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 17px;
+      color: rgba(22, 24, 35, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .profile-chevron {
+      flex-shrink: 0;
+      color: rgba(22, 24, 35, 0.34);
+    }
+  </style>
+</head>
+<body>
+
+<div class="panel-container">
+
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
+    <!-- Leading: back chevron -->
+    <button class="nav-btn" aria-label="Back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M15.5 19L8.5 12L15.5 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <!-- Title + caret -->
+    <div class="nav-title-area">
+      <span class="nav-title">Switch account</span>
+      <svg class="nav-caret" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 6L8 11L13 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Trailing: close X -->
+    <button class="nav-btn" aria-label="Close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6L18 18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Account Row 1 – Stephy (selected) -->
+  <div class="account-row">
+    <div class="account-row-inner">
+      <div class="avatar">
+        <img src="Assets/Profile_Before_Switch.png" alt="Stephy" />
+        <div class="avatar-stroke"></div>
+      </div>
+      <div class="account-text">
+        <span class="account-nickname">Stephy</span>
+      </div>
+    </div>
+    <!-- Selected tick -->
+    <div class="tick-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3.5 10.5L8 15L16.5 5.5" stroke="#FE2C54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Account Row 2 – Juliana (selected) -->
+  <div class="account-row">
+    <div class="account-row-inner">
+      <div class="avatar">
+        <img src="Assets/Profile_Before_Switch.png" alt="Juliana" />
+        <div class="avatar-stroke"></div>
+      </div>
+      <div class="account-text">
+        <span class="account-nickname">Juliana</span>
+      </div>
+    </div>
+    <!-- Selected tick -->
+    <div class="tick-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3.5 10.5L8 15L16.5 5.5" stroke="#FE2C54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Account Row 3 – Christina (badge "1") -->
+  <div class="account-row">
+    <div class="account-row-inner">
+      <div class="avatar">
+        <img src="Assets/Profile_Before_Switch.png" alt="Christina" />
+        <div class="avatar-unread-dot"></div>
+        <div class="avatar-stroke"></div>
+      </div>
+      <div class="account-text">
+        <span class="account-nickname">Christina</span>
+      </div>
+    </div>
+    <!-- Notification badge -->
+    <div class="badge">1</div>
+  </div>
+
+  <!-- Account Row 4 – Add account -->
+  <div class="account-row">
+    <div class="account-row-inner">
+      <div class="avatar-placeholder">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 1V19M1 10H19" stroke="#161823" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="account-text">
+        <span class="account-nickname">Add account</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Component (Single state) -->
+  <div class="profile-component">
+    <!-- Avatar icon -->
+    <div class="profile-avatar-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="8" r="4" stroke="rgba(22,24,35,0.5)" stroke-width="1.5"/>
+        <path d="M4 20c0-4 3.582-7 8-7s8 3 8 7" stroke="rgba(22,24,35,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <!-- Info -->
+    <div class="profile-info">
+      <span class="profile-name">Stephy</span>
+      <span class="profile-username">@Stephy0303.ana</span>
+    </div>
+    <!-- Trailing chevron -->
+    <svg class="profile-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M6 4l4 4-4 4" stroke="rgba(22,24,35,0.34)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+</div>
+
+</body>
+</html>

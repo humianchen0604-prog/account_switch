@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=390, height=844, initial-scale=1.0" />
+  <title>My Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #E5E5E5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* ── Phone shell ─────────────────────────────── */
+    .screen {
+      width: 390px;
+      height: 844px;
+      background: #FFFFFF;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      font-family: 'TikTok Sans', sans-serif;
+    }
+
+    /* ── Status bar ──────────────────────────────── */
+    .status-bar {
+      flex-shrink: 0;
+    }
+    .status-bar img {
+      width: 390px;
+      display: block;
+    }
+
+    /* ── Nav bar ─────────────────────────────────── */
+    .nav-bar {
+      height: 44px;
+      padding: 0 8px 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .nav-bar-title {
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 22px;
+      color: #000;
+      flex: 1;
+      text-align: center;
+    }
+    .nav-btn {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-btn:active { background: rgba(0,0,0,0.06); border-radius: 50%; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ── Scroll content ──────────────────────────── */
+    .scroll-content {
+      flex: 1;
+      overflow: hidden;
+      padding-top: 0;
+    }
+
+    /* Basic info positioned 85px from page top */
+    .basic-info {
+      margin-top: -6px;
+    }
+
+    /* ── Basic info ──────────────────────────────── */
+    .basic-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 16px 12px;
+      gap: 10px;
+    }
+
+    /* Avatar (node 20560-172157) */
+    .avatar-wrapper {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+    }
+    .avatar-img {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1px solid rgba(22, 24, 35, 0.08);
+    }
+    .avatar-edit-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 3.5px solid #fff;
+      cursor: pointer;
+      display: block;
+    }
+
+    /* Name row */
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .name-text {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 22px;
+      color: #000;
+    }
+    /* Filled chevron-down (Icon/Chevron_Down_Fill) */
+    .name-caret {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    /* Edit button */
+    .edit-btn {
+      display: block;
+      width: 48px;
+      height: 28px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Username */
+    .username {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(22, 24, 35, 0.48);
+      line-height: 17px;
+      margin-top: -8px;
+    }
+
+    /* ── Stats ───────────────────────────────────── */
+    .stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 37px;
+      padding: 0 45px;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+    .stat-value {
+      font-size: 17px; font-weight: 700; line-height: 22px;
+      color: #000; text-align: center;
+    }
+    .stat-label {
+      font-size: 13px; font-weight: 400; line-height: 17px;
+      color: rgba(22, 24, 35, 0.48); text-align: center;
+    }
+    .stat-divider {
+      width: 0.5px; height: 16px;
+      background: rgba(22, 24, 35, 0.12);
+      flex-shrink: 0; margin: 0 2px;
+    }
+
+    /* ── Bio & links ─────────────────────────────── */
+    .bio-section {
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .bio-text { font-size: 13px; font-weight: 400; color: #000; line-height: 17px; text-align: center; }
+    .bio-links { display: flex; align-items: center; gap: 4px; }
+    .bio-link { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #000; line-height: 17px; }
+    .bio-dot { width: 2px; height: 2px; border-radius: 50%; background: rgba(0,0,0,0.65); }
+
+    /* ── Content section ─────────────────────────── */
+    .content-section { margin-top: 8px; }
+
+    /* ── Tab bar ─────────────────────────────────── */
+    .tab-bar {
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 0.5px solid rgba(22, 24, 35, 0.12);
+      height: 42px;
+      padding: 0 8px;
+    }
+    .tab-item {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 42px; cursor: pointer;
+      position: relative; padding-bottom: 2px;
+    }
+    .tab-item.active .tab-icon { opacity: 1; }
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 48px; height: 2px;
+      background: #161823; border-radius: 1px;
+    }
+    .tab-icon { opacity: 0.48; }
+    .tab-dropdown { position: relative; display: flex; align-items: flex-end; }
+    .tab-dropdown-arrow { position: absolute; right: -10px; bottom: 0; }
+
+    /* ── Playlist bar ────────────────────────────── */
+    .playlist-bar {
+      display: flex; align-items: center; gap: 4px;
+      padding: 10px 12px; overflow-x: auto; scrollbar-width: none;
+      border-bottom: 0.85px solid rgba(22, 24, 35, 0.12);
+    }
+    .playlist-bar::-webkit-scrollbar { display: none; }
+    .playlist-add-btn {
+      width: 28px; height: 28px; border-radius: 5px;
+      background: #F5F5F5; border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+    .playlist-chip {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5.5px 8px 5.5px 12px; border-radius: 5px;
+      background: #F5F5F5; cursor: pointer; flex-shrink: 0; white-space: nowrap;
+    }
+    .playlist-chip-label { font-size: 13px; font-weight: 500; color: #000; line-height: 17px; }
+    .playlist-chip-count {
+      min-width: 24px; height: 16px; border-radius: 50px;
+      background: rgba(22, 24, 35, 0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 500; color: #000; padding: 0 4px;
+    }
+    .manage-playlist-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 22px; border-radius: 2px;
+      background: #fff; border: 1px solid rgba(22, 24, 35, 0.12);
+      cursor: pointer; font-size: 14px; font-weight: 600; color: #000; flex-shrink: 0;
+    }
+
+    /* ── Video grid ──────────────────────────────── */
+    .video-grid { display: flex; flex-direction: column; gap: 1.5px; }
+    .video-row { display: flex; gap: 1.5px; }
+    .video-cell {
+      flex: 1; aspect-ratio: 129 / 173;
+      background: #F2F2F2; position: relative; overflow: hidden; cursor: pointer;
+    }
+    .video-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 40%);
+    }
+    .video-meta {
+      position: absolute; bottom: 5px; left: 5px;
+      display: flex; align-items: center; gap: 2px;
+      color: #fff; font-size: 12px; font-weight: 600; line-height: 17px;
+      text-shadow: 0 0.5px 1px rgba(0,0,0,0.3);
+    }
+    .vc-1 { background: linear-gradient(160deg, #c9b99a 0%, #9a7b5c 100%); }
+    .vc-2 { background: linear-gradient(160deg, #a8b8c9 0%, #6a8fa8 100%); }
+    .vc-3 { background: linear-gradient(160deg, #b8c9a8 0%, #6a8a5c 100%); }
+    .vc-4 { background: linear-gradient(160deg, #c9a8b8 0%, #a86a8a 100%); }
+    .vc-5 { background: linear-gradient(160deg, #c9c9a8 0%, #9a9a5c 100%); }
+    .vc-6 { background: linear-gradient(160deg, #a8c9c9 0%, #5c9a9a 100%); }
+    .vc-draft { background: linear-gradient(160deg, #ccc 0%, #999 100%); }
+
+    /* ── Bottom Nav Bar ──────────────────────────── */
+    .bottom-navbar {
+      width: 390px;
+      flex-shrink: 0;
+      display: block;
+    }
+    .bottom-navbar img {
+      width: 390px;
+      display: block;
+    }
+
+    /* ── Panel Modal Overlay ────────────────────── */
+    .panel-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.34, 1.0, 0.64, 1);
+    }
+    .panel-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Panel Container Modal ───────────────────── */
+    .panel-modal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-height: 80%;
+      background: #ffffff;
+      border-radius: 14px 14px 0 0;
+      z-index: 1000;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.34, 1.0, 0.64, 1);
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+      padding-bottom: 42px;
+    }
+    .panel-modal.active {
+      transform: translateY(0);
+    }
+
+    /* ── Home Indicator (node 20560-172382) ─────── */
+    .home-indicator {
+      height: 34px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .home-indicator-pill {
+      width: 134px;
+      height: 5px;
+      background: #000;
+      border-radius: 3px;
+      opacity: 1;
+    }
+
+    /* TikTok Loading Spinner */
+    .loading-container {
+      width: 48px;
+      height: 24px;
+    }
+
+    .green {
+      fill: #3AF2FF;
+      stroke: none;
+      r: 17px;
+      cx: 17px;
+      cy: 25px;
+      animation: green 910ms linear infinite;
+      opacity: 1;
+    }
+
+    .red {
+      fill: #FE2C54;
+      stroke: none;
+      r: 17px;
+      cx: 53px;
+      cy: 25px;
+      animation: red 910ms linear infinite;
+      opacity: 1;
+    }
+
+    .black-circle {
+      fill: rgb(15, 15, 15);
+      stroke-width: 0;
+      r: 17px;
+      cx: 17px;
+      cy: 25px;
+      animation: green 910ms linear infinite;
+    }
+
+    .black {
+      fill: black;
+    }
+
+    @keyframes green {
+      0%{cx:17px;r:17px;}
+      10%{cx:18px;r:17px;}
+      13.3%{cx:19.5px;r:17.8px;}
+      16.7%{cx:21.5px;r:18.5px;}
+      20%{cx:24px;r:20px;}
+      23.3%{cx:30px;r:21.5px;}
+      26.7%{cx:42px;r:21.5px;}
+      30%{cx:46.5px;r:19.8px;}
+      33.3%{cx:49.5px;r:18.2px;}
+      36.7%{cx:49.5px;r:18.2px;}
+      40%{cx:51.5px;r:17.2px;}
+      43.3%{cx:53px;r:17px;}
+      56.7%{cx:53px;r:17px;}
+      60%{cx:52px;r:17px;}
+      63.3%{cx:51px;r:16px;}
+      66.7%{cx:49px;r:15px;}
+      70%{cx:46.5px;r:12.8px;}
+      73.3%{cx:41.5px;r:11.2px;}
+      76.7%{cx:28.5px;r:11.2px;}
+      80%{cx:24px;r:13px;}
+      83.3%{cx:21px;r:15px;}
+      86.7%{cx:19px;r:16px;}
+      90%{cx:18px;r:17px;}
+      100%{cx:17px;r:17px;}
+    }
+
+    @keyframes red {
+      0%{cx:53px;r:17px;}
+      6.7%{cx:52.5px;r:17px;}
+      10%{cx:51.8px;r:16.9px;}
+      13.3%{cx:51px;r:16px;}
+      16.7%{cx:49px;r:15px;}
+      20%{cx:46px;r:13px;}
+      23.3%{cx:41.5px;r:11.2px;}
+      26.7%{cx:28.5px;r:11.2px;}
+      30%{cx:24px;r:13px;}
+      33.3%{cx:21px;r:15px;}
+      36.7%{cx:19px;r:16px;}
+      40%{cx:18px;r:16.5px;}
+      43.3%{cx:17px;r:17px;}
+      53.3%{cx:17px;r:17px;}
+      56.7%{cx:17.5px;r:17.2px;}
+      60%{cx:18.5px;r:17.2px;}
+      63.3%{cx:19.5px;r:17.8px;}
+      66.7%{cx:21px;r:18px;}
+      70%{cx:23.5px;r:19.8px;}
+      73.3%{cx:28px;r:21px;}
+      76.7%{cx:42px;r:21px;}
+      80%{cx:46.5px;r:19.8px;}
+      83.3%{cx:49px;r:18px;}
+      86.7%{cx:50px;r:17.5px;}
+      90%{cx:51.5px;r:17.2px;}
+      93.3%{cx:52.5px;r:17.2px;}
+      100%{cx:53px;r:17px;}
+    }
+  </style>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; background: #E5E5E5; min-height: 100vh; margin: 0; padding: 0; position: relative;">
+
+<div class="screen" style="flex-shrink: 0;">
+
+  <!-- Status Bar (node 20560-172241) -->
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <img id="statusBarImg" src="Assets/Status Bar.png" alt="Status Bar" />
+  </div>
+
+  <!-- Nav bar (node 20560-172242) -->
+  <div class="nav-bar">
+    <!-- Leading: Person_plus -->
+    <button class="nav-btn" aria-label="Add person">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.49934 13.5C11.5912 13.5 13.4895 14.0707 14.9681 15.25H14.4993C13.757 15.2501 13.0977 15.6106 12.6878 16.166C11.7882 15.7311 10.7171 15.5 9.49934 15.5C7.50886 15.5001 5.91153 16.1182 4.81184 17.2334C3.78958 18.2701 3.10153 19.8341 3.01008 22C2.99833 22.2758 2.77541 22.5 2.49934 22.5H1.49934C1.22335 22.4998 0.998186 22.2758 1.00813 22C1.10178 19.4079 1.92999 17.3078 3.38801 15.8291C4.93818 14.2571 7.09023 13.5001 9.49934 13.5ZM18.9993 13.5C19.2743 13.5 19.4993 13.725 19.4993 14V17H22.4993C22.7743 17 22.9993 17.225 22.9993 17.5V18.5C22.9993 18.775 22.7743 19 22.4993 19H19.4993V22C19.4993 22.275 19.2743 22.5 18.9993 22.5H17.9993C17.7245 22.4998 17.4993 22.2749 17.4993 22V19H14.4993C14.2245 18.9998 13.9993 18.7749 13.9993 18.5V17.5C13.9993 17.2251 14.2245 17.0002 14.4993 17H17.4993V14C17.4993 13.7251 17.7245 13.5002 17.9993 13.5H18.9993ZM9.49934 2C12.2608 2 14.4993 4.23858 14.4993 7C14.4993 9.76142 12.2608 12 9.49934 12C6.73806 11.9998 4.49934 9.76132 4.49934 7C4.49934 4.23868 6.73806 2.00017 9.49934 2ZM9.49934 4C7.84263 4.00017 6.49934 5.34325 6.49934 7C6.49934 8.65675 7.84263 9.99983 9.49934 10C11.1562 10 12.4993 8.65685 12.4993 7C12.4993 5.34315 11.1562 4 9.49934 4Z" fill="black"/>
+      </svg>
+    </button>
+
+    <!-- Trailing: FootPrint → Arrow_Turn_Up_Right → 3_Lines_Horizontal_2 -->
+    <div class="nav-right">
+      <button class="nav-btn" aria-label="Footprint">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.6094 5.64838C19.3475 5.81179 20.3615 6.83453 20.8438 8.05853C21.3012 9.21956 21.2865 10.5494 21.1192 11.54C20.796 13.4536 19.5434 16.8739 18.3184 19.4648C17.7907 20.5809 17.0507 21.3688 16.1661 21.7558C15.2693 22.148 14.3175 22.0849 13.4932 21.6669C12.6631 21.2459 12.1437 20.6367 11.9561 19.874C11.7814 19.1637 11.9288 18.4515 12.1241 17.8652C12.2924 17.3598 12.5324 16.8502 12.7344 16.4199C12.7677 16.349 12.7994 16.28 12.8301 16.2138C13.0732 15.6909 13.2057 15.3577 13.2335 15.1406C13.3653 14.1072 13.3172 13.5779 13.2354 12.955C13.2259 12.8826 13.2154 12.8083 13.2051 12.7324C13.1193 12.0996 13.0137 11.3187 13.0137 10.0019C13.0138 8.3503 13.5898 7.15568 14.5508 6.4267C15.4773 5.72406 16.6279 5.55611 17.6094 5.64838ZM14.4171 16.9511C14.3814 17.0278 14.3466 17.1039 14.3116 17.1787C14.1074 17.6146 13.9183 18.0194 13.7852 18.4189C13.6286 18.8893 13.5978 19.222 13.6553 19.456C13.7 19.6375 13.8231 19.8725 14.2842 20.1064C14.6725 20.3033 15.0772 20.3219 15.4649 20.1523C15.8649 19.9773 16.338 19.5593 16.7364 18.7167C16.9636 18.2361 17.1898 17.7298 17.4092 17.2138L14.629 16.4814C14.559 16.6457 14.4854 16.8041 14.4171 16.9511ZM7.67486 2.10638C8.98634 2.20125 10.0707 2.78394 10.6963 3.83002C11.309 4.85444 11.4133 6.20754 11.0528 7.72845C10.7611 8.95911 10.4335 9.74625 10.1885 10.3339C10.1427 10.4438 10.0998 10.5469 10.0606 10.6445C9.83644 11.2021 9.72021 11.5943 9.79401 12.3505C9.81885 12.605 9.90024 12.9398 10.0079 13.3857C10.0265 13.4629 10.0454 13.5438 10.0655 13.6279C10.1915 14.1548 10.333 14.7862 10.3692 15.3974C10.4044 15.9926 10.3509 16.7137 9.9444 17.3359C9.49972 18.0164 8.76436 18.3887 7.85065 18.4853C7.24704 18.549 6.38717 18.4915 5.586 18.0605C4.75586 17.6137 4.05998 16.8025 3.77154 15.5009C3.58223 14.6465 3.49419 13.8118 3.40631 12.9833C3.36773 12.6196 3.3291 12.2571 3.28229 11.8945C3.06798 10.2348 2.94097 8.31145 3.0274 6.98334C3.09052 6.01372 3.33224 4.77389 4.01959 3.77435C4.3724 3.26142 4.85051 2.80145 5.48346 2.49115C6.11739 2.18043 6.8513 2.04687 7.67486 2.10638ZM5.1817 12.8095C5.26372 13.5872 5.33666 14.2742 5.50592 15.038C5.69797 15.9046 6.11569 16.3223 6.51471 16.537C6.9427 16.7673 7.4287 16.8044 7.76861 16.7685C8.27972 16.7144 8.41365 16.5543 8.46588 16.4745C8.55607 16.3365 8.6273 16.0694 8.59967 15.6025C8.57298 15.1517 8.46453 14.6464 8.33795 14.1171C8.32111 14.0467 8.30397 13.9745 8.28619 13.9013C8.2103 13.5889 8.12913 13.2564 8.07623 12.9531L5.17975 12.7929C5.18032 12.7983 5.18113 12.8041 5.1817 12.8095ZM17.4454 7.39056C16.751 7.32535 16.0823 7.46185 15.6085 7.82123C15.1691 8.15448 14.7638 8.78069 14.7637 10.0019C14.7637 11.1995 14.8561 11.8837 14.9395 12.4999C14.9499 12.5765 14.9609 12.6522 14.9708 12.7275C15.058 13.3918 15.1132 14.0158 15.0079 15.0302L17.9796 15.8124C18.6654 14.0459 19.212 12.3237 19.3936 11.248C19.5295 10.4428 19.5155 9.46314 19.2149 8.70013C18.9391 8.00021 18.4362 7.48372 17.4454 7.39056ZM7.43561 3.82904C6.88419 3.78919 6.48882 3.88291 6.20026 4.02435C5.91106 4.16613 5.67211 4.38381 5.47272 4.67377C5.05566 5.28049 4.85046 6.14871 4.79596 6.98627C4.72432 8.08722 4.82026 9.74466 5.00494 11.2802L8.03619 11.4492C8.0993 10.9548 8.23964 10.5389 8.4151 10.1025C8.4606 9.98932 8.50723 9.8753 8.55572 9.75873C8.79682 9.17915 9.07068 8.52261 9.32721 7.44037C9.62123 6.19996 9.48204 5.32218 9.15045 4.76752C8.83181 4.23471 8.27111 3.88952 7.43561 3.82904Z" fill="black"/>
+        </svg>
+      </button>
+      <button class="nav-btn" aria-label="Share">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.8389 1.58864C11.1974 1.42702 11.6174 1.49034 11.9121 1.75075L22.6621 11.2507C22.8786 11.4421 23.0019 11.7177 23 12.0066C22.9981 12.2954 22.8712 12.5691 22.6523 12.7576L11.9023 22.0076C11.6061 22.2625 11.1883 22.3219 10.833 22.1589C10.4777 21.996 10.25 21.6406 10.25 21.2498V16.2654C7.40905 16.4069 4.27382 17.1401 2.20703 19.2068C1.92103 19.4928 1.49086 19.5784 1.11719 19.4236C0.743632 19.2688 0.5 18.9042 0.5 18.4998C0.500103 12.6586 4.35099 7.97628 10.25 7.52809V2.49977C10.2501 2.10668 10.4806 1.75028 10.8389 1.58864ZM12.25 8.49977C12.25 8.76924 12.1411 9.0274 11.9482 9.21559C11.7553 9.40379 11.4941 9.50651 11.2246 9.49977C7.0207 9.39485 3.41348 12.1699 2.67969 16.3289C4.91532 14.9802 7.58127 14.3927 10.1699 14.2664C10.5081 14.2499 10.7823 14.2459 10.9746 14.2459C11.5637 14.2459 12.2499 14.3733 12.25 15.2498V19.0701L20.4785 11.99L12.25 4.71852V8.49977Z" fill="black"/>
+        </svg>
+      </button>
+      <button class="nav-btn" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 17C21.2761 17 21.5 17.2239 21.5 17.5V18.5C21.5 18.7761 21.2761 19 21 19H3C2.72386 19 2.5 18.7761 2.5 18.5V17.5C2.5 17.2239 2.72386 17 3 17H21ZM21 11C21.2761 11 21.5 11.2239 21.5 11.5V12.5C21.5 12.7761 21.2761 13 21 13H3C2.72386 13 2.5 12.7761 2.5 12.5V11.5C2.5 11.2239 2.72386 11 3 11H21ZM21 5C21.2761 5 21.5 5.22386 21.5 5.5V6.5C21.5 6.77614 21.2761 7 21 7H3C2.72386 7 2.5 6.77614 2.5 6.5V5.5C2.5 5.22386 2.72386 5 3 5H21Z" fill="black"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Scroll area -->
+  <div class="scroll-content">
+
+    <!-- Basic Info -->
+    <div class="basic-info">
+
+      <!-- Avatar (node 20560-172157) -->
+      <div class="avatar-wrapper" id="avatarWrapper" style="cursor: pointer;">
+        <img class="avatar-img" src="Assets/4/主态/Stephy.png" alt="Stephy" />
+        <img class="avatar-edit-badge" src="Assets/_Avatar Badge Icon.png" alt="Add story" />
+
+      </div>
+
+      <!-- Name + caret (filled) + Edit -->
+      <div id="nameRowClickArea" class="name-row" style="cursor: pointer;">
+        <span class="name-text">Stephy</span>
+        <!-- Icon/Chevron_Down_Fill — solid filled downward chevron -->
+        <span class="name-caret">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2.5 5.5L8 11L13.5 5.5" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </span>
+        <img class="edit-btn" src="Assets/Edit Button.png" alt="Edit" />
+      </div>
+
+      <!-- Username -->
+      <span class="username">@Stephy0303.ana</span>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-value">5648</span>
+        <span class="stat-label">following</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">12989</span>
+        <span class="stat-label">followers</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-value">2.5K</span>
+        <span class="stat-label">likes</span>
+      </div>
+    </div>
+
+    <!-- Bio & links -->
+    <div class="bio-section">
+      <span class="bio-text">New York</span>
+      <div class="bio-links">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1L1 4l6 3 6-3-6-3z" stroke="#000" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M3.5 5.5V9.5c0 1 1.6 2 3.5 2s3.5-1 3.5-2V5.5" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M12 4v3.5" stroke="#000" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <span class="bio-link">UCLA</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons Row (shown for Juliana profile) -->
+    <div id="actionButtonsRow" style="display: none; padding: 0 12px; gap: 12px; margin-top: 4px; margin-bottom: 8px; flex-direction: row; justify-content: center;">
+      <button id="tiktokStudioBtn" style="display: flex; padding: 8px 12px; align-items: center; gap: 6px; border-radius: 23px; background: rgba(0, 0, 0, 0.05); border: none; cursor: pointer; font-family: 'TikTok Sans', sans-serif; font-size: 13px; font-weight: 600; color: #000;">
+        <img src="Assets/Person_Star.svg" alt="TikTok Studio" style="width: 16px; height: 16px;" />
+        <span>TikTok Studio</span>
+      </button>
+      <button id="subscriptionBtn" style="display: flex; padding: 8px 12px; align-items: center; gap: 6px; border-radius: 23px; background: rgba(0, 0, 0, 0.05); border: none; cursor: pointer; font-family: 'TikTok Sans', sans-serif; font-size: 13px; font-weight: 600; color: #000;">
+        <img src="Assets/Star_Ring.svg" alt="Subscription" style="width: 16px; height: 16px;" />
+        <span>Subscription</span>
+      </button>
+    </div>
+
+    <!-- Bottom Content Section -->
+    <div id="bottomContentContainer" style="width: 390px; display: flex; flex-direction: column;">
+      <img id="contentImage" src="Assets/Profile_Before_Switch_Bottom Content.png" alt="Profile Content" style="width: 390px; display: block;" />
+      <div id="loadingOverlay" style="display: none; width: 390px; flex: 1; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease-out; margin-top: 120px; margin-left: 8px;">
+        <div style="display: flex; width: 32px; height: 32px; justify-content: center; align-items: center; flex-shrink: 0;">
+          <svg class="loading-container" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 50" width="48" height="48" style="display: block;">
+            <defs>
+              <mask id="redhole">
+                <rect width="100%" height="100%" fill="white"/>
+                <circle fill="black" class="red black"></circle>
+              </mask>
+              <mask id="greenhole">
+                <rect width="100%" height="100%" fill="white"/>
+                <circle fill="black" class="green black"></circle>
+              </mask>
+            </defs>
+            <circle id="black" class="black-circle"></circle>
+            <circle id="green" class="green" mask="url(#redhole)"></circle>
+            <circle id="red" class="red" mask="url(#greenhole)"></circle>
+          </svg>
+        </div>
+      </div>
+      <img id="juliana_Content2" src="Assets/Juliana_Content2.png" alt="Juliana Content 2" style="width: 390px; display: none;" />
+    </div>
+
+    <!-- Content section (replaced with image) -->
+    <div class="content-section" style="display: none;">
+
+      <!-- Tab bar -->
+      <div class="tab-bar">
+        <div class="tab-item active">
+          <svg class="tab-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 3.5h5.5c.3 0 .5.2.5.5v12c0 .3-.2.5-.5.5H4c-.3 0-.5-.2-.5-.5V4c0-.3.2-.5.5-.5z" stroke="#000" stroke-width="1.3"/>
+            <path d="M10 5l5.5 3.2c.3.2.3.6 0 .8L10 12.2V5z" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="tab-item">
+          <div class="tab-dropdown">
+            <svg class="tab-icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect x="2.5" y="2.5" width="7" height="9" rx="1" stroke="#000" stroke-width="1.3"/>
+              <rect x="12.5" y="2.5" width="7" height="9" rx="1" stroke="#000" stroke-width="1.3"/>
+              <rect x="2.5" y="13.5" width="7" height="6" rx="1" stroke="#000" stroke-width="1.3"/>
+              <rect x="12.5" y="13.5" width="7" height="6" rx="1" stroke="#000" stroke-width="1.3"/>
+            </svg>
+            <svg class="tab-dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="tab-item">
+          <svg class="tab-icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <rect x="4" y="9.5" width="14" height="10" rx="2" stroke="#000" stroke-width="1.3"/>
+            <path d="M7.5 9.5V6.5a3.5 3.5 0 0 1 7 0v3" stroke="#000" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="11" cy="14" r="1.5" fill="#000" opacity="0.48"/>
+          </svg>
+        </div>
+        <div class="tab-item">
+          <svg class="tab-icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M5 8l3-3 3 3M8 5v9a2 2 0 0 0 2 2h4" stroke="#000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 14l-3 3-3-3M14 17V8a2 2 0 0 0-2-2H8" stroke="#000" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="tab-item">
+          <svg class="tab-icon" width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 18s-8-5.5-8-10a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 4.5-8 10-8 10z" stroke="#000" stroke-width="1.3" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="tab-item">
+          <svg class="tab-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="8" stroke="#000" stroke-width="1.3"/>
+            <path d="M10 2c4.4 0 8 3.6 8 8 0 1-.5 2-1 2-2 0-7 5-7 7 0 .5-1 1-2 1" stroke="#000" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="7.5" cy="7.5" r="1" fill="#000" opacity="0.48"/>
+            <circle cx="12.5" cy="7.5" r="1" fill="#000" opacity="0.48"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Playlist bar -->
+      <div class="playlist-bar">
+        <button class="playlist-add-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2v12M2 8h12" stroke="#000" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="playlist-chip">
+          <span class="playlist-chip-label">Details</span>
+          <span class="playlist-chip-count">34</span>
+        </div>
+        <div class="playlist-chip">
+          <span class="playlist-chip-label">Classy outfits</span>
+          <span class="playlist-chip-count">18</span>
+        </div>
+        <div class="playlist-chip">
+          <span class="playlist-chip-label">Dresses</span>
+          <span class="playlist-chip-count">12</span>
+        </div>
+        <button class="manage-playlist-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 4h12M2 8h8M2 12h5" stroke="#000" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          Manage Playlist
+        </button>
+      </div>
+
+      <!-- Video grid -->
+      <div class="video-grid">
+        <div class="video-row">
+          <div class="video-cell vc-draft">
+            <div class="video-overlay"></div>
+            <div class="video-meta">Drafts: 2</div>
+          </div>
+          <div class="video-cell vc-1">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>241K
+            </div>
+          </div>
+          <div class="video-cell vc-2">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>18.5K
+            </div>
+          </div>
+        </div>
+        <div class="video-row">
+          <div class="video-cell vc-3">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>92.1K
+            </div>
+          </div>
+          <div class="video-cell vc-4">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>5.4K
+            </div>
+          </div>
+          <div class="video-cell vc-5">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>73.2K
+            </div>
+          </div>
+        </div>
+        <div class="video-row">
+          <div class="video-cell vc-6">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>1.2M
+            </div>
+          </div>
+          <div class="video-cell vc-1">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>44K
+            </div>
+          </div>
+          <div class="video-cell vc-2">
+            <div class="video-overlay"></div>
+            <div class="video-meta">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#fff"><path d="M3 2l7 4-7 4V2z"/></svg>310K
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-section -->
+  </div><!-- /scroll-content -->
+
+  <!-- Juliana Loading Screen -->
+  <div id="julianaLoadingScreen" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 106px; background: #6B6B6B; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 1500; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-out;">
+    <div style="display: flex; width: 24px; height: 24px; justify-content: center; align-items: center; flex-shrink: 0;">
+      <svg class="loading-container" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 50" width="24" height="24" style="display: block;">
+        <defs>
+          <mask id="redhole">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle fill="black" class="red black"></circle>
+          </mask>
+          <mask id="greenhole">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle fill="black" class="green black"></circle>
+          </mask>
+        </defs>
+        <circle id="green" class="green"></circle>
+        <circle id="red" class="red"></circle>
+      </svg>
+    </div>
+    <span id="loadingText" style="color: #F6F6F6; text-align: center; font-family: 'TikTok Sans', sans-serif; font-size: 14px; font-weight: 600; line-height: 130%; margin: 0; padding: 0;">Loading...</span>
+  </div>
+
+  <!-- Android FYP Page -->
+  <div id="androidFYPPage" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; display: none; z-index: 1400; opacity: 1;">
+    <video id="fypVideo" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none;" autoplay muted loop></video>
+    <img id="fypBackground" src="Assets/Android_FYP.png" alt="FYP" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" />
+  </div>
+
+  <!-- White Overlay for FYP Transition -->
+  <div id="fypWhiteOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #FFFFFF; display: none; z-index: 1450; opacity: 0; transition: opacity 0.2s ease-out;"></div>
+
+  <!-- Android FYP Page 2 with Dual Circles -->
+  <div id="androidFYPPage2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1400; opacity: 0; transition: opacity 0.3s ease-out; flex-direction: column; align-items: center; justify-content: center;">
+    <video id="fypVideo2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: none; z-index: 1;" autoplay muted loop></video>
+    <div id="fypBlackOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 1;"></div>
+    <img id="fypImg2" src="Assets/Android_FYP2.png" alt="FYP2" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;" />
+    <div id="fypDualCircles" style="display: flex; width: 32px; height: 32px; justify-content: center; align-items: center; flex-shrink: 0; position: relative; z-index: 3;">
+      <svg class="loading-container" preserveAspectRatio="xMidYMid meet" viewBox="0 0 100 50" width="32" height="32" style="display: block;">
+        <defs>
+          <mask id="redhole2">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle fill="black" class="red black"></circle>
+          </mask>
+          <mask id="greenhole2">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle fill="black" class="green black"></circle>
+          </mask>
+        </defs>
+        <circle id="green2" class="green"></circle>
+        <circle id="red2" class="red"></circle>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Toast Notification (With Profile) -->
+  <img id="toastWithProfile" src="Assets/With Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; width: 213px; height: auto; display: none; z-index: 1001; pointer-events: none;" />
+
+  <!-- Toast Notification (Without Profile) -->
+  <div id="toastWithoutProfile" style="position: absolute; top: 103px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; display: none; z-index: 1001; pointer-events: none;">
+    <div style="display: inline-flex; min-width: 120px; max-width: 358px; min-height: 48px; padding: 12px 16px; justify-content: center; align-items: center; gap: 8px; border-radius: 14px; box-shadow: 0 12px 50px 0 rgba(0, 0, 0, 0.15); background: #8D8D8D; color: #F6F6F6; font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 130%;">
+      Switched to Juliana
+    </div>
+  </div>
+
+  <!-- Android Toast Notification (With Profile) -->
+  <img id="androidToast" src="Assets/Android_Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; height: 56px; width: auto; display: none; z-index: 2000; pointer-events: none;" />
+
+  <!-- Android Toast Notification (Without Profile) -->
+  <img id="androidToastWithoutProfile" src="Assets/Without Profile_Juliana.png" alt="Switched to Juliana" style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%) scale(0.8); opacity: 0; height: 56px; width: auto; display: none; z-index: 2000; pointer-events: none;" />
+
+  <!-- Bottom Nav Bar -->
+  <div class="bottom-navbar" id="bottomNavBar">
+    <img src="Assets/Bottom Nav Bar.png" alt="Bottom Nav Bar" />
+  </div>
+
+  <!-- Profile Icon Double-Click Hotspot -->
+  <div id="profileIconHotspot" style="position: absolute; bottom: 34px; right: 0; width: 60px; height: 49px; padding: 2px 0 3px 0; flex-direction: column; align-items: center; gap: -1px; cursor: pointer; z-index: 100;"></div>
+
+  <!-- Home Indicator (node 20560-172382) -->
+  <div class="home-indicator">
+    <div class="home-indicator-pill" id="homeIndicatorPill"></div>
+  </div>
+
+  <!-- Panel Modal Overlay -->
+  <div class="panel-overlay" id="panelOverlay"></div>
+
+  <!-- Panel Modal (Switch Account) - node 20560-155013 -->
+  <div class="panel-modal" id="panelModal">
+    <!-- Navigation Bar -->
+    <div style="height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative;">
+      <span style="font-family: 'TikTok Sans', sans-serif; font-size: 17px; font-weight: 700; line-height: 22px; color: #000;">Switch account</span>
+      <button onclick="closePanelModal()" style="position: absolute; right: 6px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 0;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Account Rows -->
+    <div style="width: 100%; height: 76px; display: flex; align-items: center; padding: 0 16px; cursor: pointer; position: relative;">
+      <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+        <div style="width: 56px; height: 56px; border-radius: 999px; overflow: hidden; flex-shrink: 0; position: relative; background: #F2F2F2;">
+          <img src="Assets/Profile_Imgs/Profile_Imgs/Stephy.png" alt="Stephy" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <div style="position: absolute; inset: 0; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); pointer-events: none;"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0;">
+          <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 19.5px; color: #000000;">Stephy</span>
+        </div>
+      </div>
+      <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #FE2C54;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3.5 10.5L8 15L16.5 5.5" stroke="#FE2C54" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div id="accountRowJuliana" style="width: 100%; height: 76px; display: flex; align-items: center; padding: 0 16px; cursor: pointer; position: relative; transition: background-color 0.2s;">
+      <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+        <div style="width: 56px; height: 56px; border-radius: 999px; overflow: hidden; flex-shrink: 0; position: relative; background: #F2F2F2;">
+          <img src="Assets/Profile_Imgs/Profile_Imgs/Juliana.png" alt="Juliana" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <div style="position: absolute; inset: 0; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); pointer-events: none;"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0;">
+          <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 19.5px; color: #000000;">Juliana</span>
+        </div>
+
+      </div>
+      <div style="min-width: 20px; height: 20px; border-radius: 10px; background: #FE2C54; color: #FFFFFF; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; padding: 0 5px; flex-shrink: 0;">1</div>
+    </div>
+
+    <div id="accountRowChristina" style="width: 100%; height: 76px; display: flex; align-items: center; padding: 0 16px; cursor: pointer; position: relative; transition: background-color 0.2s;">
+      <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+        <div style="width: 56px; height: 56px; border-radius: 999px; overflow: hidden; flex-shrink: 0; position: relative; background: #F2F2F2;">
+          <img src="Assets/Profile_Imgs/Profile_Imgs/Christina.png" alt="Christina" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+          <div style="position: absolute; inset: 0; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); pointer-events: none;"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0;">
+          <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 19.5px; color: #000000;">Christina</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="width: 100%; height: 76px; display: flex; align-items: center; padding: 0 16px; cursor: pointer; position: relative;">
+      <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+        <div style="width: 56px; height: 56px; border-radius: 999px; background: rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 1V19M1 10H19" stroke="#161823" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0;">
+          <span style="font-family: 'TikTok Sans', sans-serif; font-size: 15px; font-weight: 600; line-height: 19.5px; color: #000000;">Add account</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /screen -->
+
+<!-- Control Panel -->
+<div style="position: fixed; right: 20px; top: 50%; transform: translateY(-50%); background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); width: 280px; height: fit-content; font-family: 'TikTok Sans', sans-serif;">
+  <!-- Section 1: Demo Version -->
+  <div style="margin-bottom: 20px;">
+    <div style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; margin-bottom: 12px;">Demo Version</div>
+    <div id="demoVersionGroup" style="display: flex; flex-direction: column; gap: 8px;">
+      <!-- Version rows will be generated here -->
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
+  <!-- Section 2: Profile Picture Toggle -->
+  <div style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="flex: 1;">
+        <div style="font-size: 13px; font-weight: 600; color: #000; line-height: 1.3;">With profile picture</div>
+        <div style="font-size: 11px; color: #999; margin-top: 2px;">In top toast</div>
+      </div>
+      <label id="profilePictureToggleLabel" style="position: relative; display: inline-block; width: 44px; height: 26px; cursor: pointer;">
+        <input type="checkbox" id="profilePictureToggle" checked style="opacity: 0; width: 0; height: 0;">
+        <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; transition: .3s; border-radius: 26px;"></span>
+        <span style="position: absolute; content: ''; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; pointer-events: none;"></span>
+      </label>
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
+  <!-- Section 3: Summary Info Box -->
+  <div style="background: #F5F5F5; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; line-height: 1.6;">
+    <div style="font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px; font-size: 11px;">This demo will show</div>
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 8px 12px;">
+      <div style="color: #999; font-weight: 500;">Trigger:</div>
+      <div id="summaryTrigger" style="color: #333;">Long press</div>
+
+      <div style="color: #999; font-weight: 500;">Switch to:</div>
+      <div id="summarySwitch" style="color: #333;">Profile → Profile</div>
+
+      <div style="color: #999; font-weight: 500;">Toast:</div>
+      <div id="summaryToast" style="color: #333;">No toast</div>
+
+      <div style="color: #999; font-weight: 500;">Profile pic:</div>
+      <div id="summaryProfile" style="color: #999;">Locked off</div>
+    </div>
+  </div>
+
+  <!-- Start Button -->
+  <button id="startBtn" style="width: 100%; padding: 12px; background: #000; color: #fff; border: none; border-radius: 999px; font-family: 'TikTok Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s;">
+    Start
+  </button>
+
+  <style>
+    .demo-version-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .demo-version-row:hover {
+      background: #F5F5F5;
+    }
+
+    .demo-version-row.active {
+      border-color: #000;
+      background: #F9F9F9;
+    }
+
+    .demo-version-radio {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #CCC;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .demo-version-row.active .demo-version-radio {
+      border-color: #000;
+      background: #000;
+    }
+
+    .demo-version-radio::after {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .demo-version-row.active .demo-version-radio::after {
+      opacity: 1;
+    }
+
+    .demo-version-label {
+      flex: 1;
+      font-size: 12px;
+      font-weight: 500;
+      color: #000;
+    }
+
+    .demo-version-platform {
+      font-size: 10px;
+      padding: 2px 8px;
+      background: #EEE;
+      border-radius: 4px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    #profilePictureToggle:not(:checked) + span { background-color: #CCCCCC; }
+    #profilePictureToggle:checked + span { background-color: #34A853; }
+    #profilePictureToggle:checked + span + span { transform: translateX(18px); }
+
+    #profilePictureToggleLabel.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    #startBtn:hover { background: #333; }
+    #startBtn:active { background: #000; }
+  </style>
+</div>
+
+<script>
+  // Demo versions configuration
+  const demoVersions = {
+    'ios-longpress': {
+      name: '实验版 · iOS',
+      platform: 'iOS',
+      trigger: 'Bottom nav double tap',
+      switchTo: 'Profile → Profile',
+      toast: 'No toast',
+      profilePic: 'Locked off',
+      profilePicLocked: true,
+      profilePicDefault: false,
+      showToast: false,
+      showPanel: false
+    },
+    'android-longpress': {
+      name: '实验版 · Android',
+      platform: 'Android',
+      trigger: 'Long press',
+      switchTo: 'Profile → FYP',
+      toast: 'No toast',
+      profilePic: 'Locked off',
+      profilePicLocked: true,
+      profilePicDefault: false,
+      showToast: false,
+      showPanel: true
+    },
+    'ios-doubleclick': {
+      name: '继续讨论版 · iOS',
+      platform: 'iOS',
+      trigger: 'Long press / Double tap',
+      switchTo: 'Profile → Profile',
+      toast: 'Toast on top',
+      profilePic: 'User controlled',
+      profilePicLocked: false,
+      profilePicDefault: true,
+      showToast: true,
+      showPanel: true
+    },
+    'android-doubleclick': {
+      name: '继续讨论版 · Android',
+      platform: 'Android',
+      trigger: 'Long press / Double tap',
+      switchTo: 'Profile → For You',
+      toast: 'No toast',
+      profilePic: 'User controlled',
+      profilePicLocked: false,
+      profilePicDefault: true,
+      showToast: false,
+      showPanel: true
+    }
+  };
+
+  let currentDemoVersion = 'ios-longpress';
+
+  // Get elements
+  const nameRowClickArea = document.getElementById('nameRowClickArea');
+  const editBtn = document.querySelector('.edit-btn');
+  const panelModal = document.getElementById('panelModal');
+  const panelOverlay = document.getElementById('panelOverlay');
+  const accountRowJuliana = document.getElementById('accountRowJuliana');
+  const accountRowChristina = document.getElementById('accountRowChristina');
+  const toastWithProfile = document.getElementById('toastWithProfile');
+  const toastWithoutProfile = document.getElementById('toastWithoutProfile');
+  const julianaLoadingScreen = document.getElementById('julianaLoadingScreen');
+  const startBtn = document.getElementById('startBtn');
+  const profilePictureToggle = document.getElementById('profilePictureToggle');
+  const profilePictureToggleLabel = document.getElementById('profilePictureToggleLabel');
+  const demoVersionGroup = document.getElementById('demoVersionGroup');
+  const avatarWrapper = document.getElementById('avatarWrapper');
+  const bottomNavBar = document.getElementById('bottomNavBar');
+  const statusBarImg = document.getElementById('statusBarImg');
+  const homeIndicatorPill = document.getElementById('homeIndicatorPill');
+  const loadingText = document.getElementById('loadingText');
+  const androidFYPPage = document.getElementById('androidFYPPage');
+  const fypVideo = document.getElementById('fypVideo');
+  const fypWhiteOverlay = document.getElementById('fypWhiteOverlay');
+  const androidFYPPage2 = document.getElementById('androidFYPPage2');
+  const fypVideo2 = document.getElementById('fypVideo2');
+  const fypDualCircles = document.getElementById('fypDualCircles');
+  const fypBlackOverlay = document.getElementById('fypBlackOverlay');
+  const androidToast = document.getElementById('androidToast');
+  const androidToastWithoutProfile = document.getElementById('androidToastWithoutProfile');
+  const profileIconHotspot = document.getElementById('profileIconHotspot');
+  const scrollContent = document.querySelector('.scroll-content');
+
+  // Initialize demo version selector
+  function initializeDemoVersions() {
+    Object.entries(demoVersions).forEach(([key, config]) => {
+      const row = document.createElement('div');
+      row.className = `demo-version-row ${key === currentDemoVersion ? 'active' : ''}`;
+      row.dataset.version = key;
+      row.innerHTML = `
+        <div class="demo-version-radio"></div>
+        <div class="demo-version-label">${config.name}</div>
+        <div class="demo-version-platform">${config.platform}</div>
+      `;
+      row.addEventListener('click', () => selectDemoVersion(key));
+      demoVersionGroup.appendChild(row);
+    });
+  }
+
+  // Select demo version
+  function selectDemoVersion(versionKey) {
+    currentDemoVersion = versionKey;
+    const config = demoVersions[versionKey];
+
+    // Update UI
+    document.querySelectorAll('.demo-version-row').forEach(row => {
+      row.classList.toggle('active', row.dataset.version === versionKey);
+    });
+
+    // Update profile picture toggle
+    updateProfilePictureToggle(config);
+
+    // Update summary
+    updateSummary(config);
+
+    // Update status bar for Android versions
+    updateStatusBar(versionKey);
+
+    // Save to localStorage
+    localStorage.setItem('selectedDemoVersion', versionKey);
+  }
+
+  // Handle FYP transition sequence for Android
+  function handleFYPTransition() {
+    // Wait 6 seconds before starting the transition
+    setTimeout(() => {
+      // Hide first FYP page
+      androidFYPPage.style.display = 'none';
+      androidFYPPage.style.opacity = '0';
+
+      // Stop and hide first video
+      fypVideo.pause();
+      fypVideo.style.display = 'none';
+
+      // Show white overlay instantly at full opacity
+      fypWhiteOverlay.style.display = 'block';
+      fypWhiteOverlay.style.opacity = '1';
+
+      // Immediately start showing FYP2 page (but keep it hidden behind white)
+      androidFYPPage2.style.display = 'flex';
+      androidFYPPage2.style.flexDirection = 'column';
+      androidFYPPage2.style.alignItems = 'center';
+      androidFYPPage2.style.justifyContent = 'center';
+      androidFYPPage2.style.opacity = '1';
+
+      // Show dual circles (animating) on top of Android_FYP2.png
+      fypDualCircles.style.display = 'flex';
+      // Prepare video2 but don't show yet (will be behind image)
+      fypVideo2.src = 'Assets/Android_FYP_Video2.mov';
+
+      // After 1 second, fade out white overlay to reveal FYP2 page with dual circles
+      setTimeout(() => {
+        fypWhiteOverlay.style.opacity = '0';
+      }, 1000);
+
+      // After 2 more seconds (total 3s from white flash), hide dual circles and show video2
+      setTimeout(() => {
+        fypDualCircles.style.display = 'none';
+        fypBlackOverlay.style.display = 'none';
+        fypVideo2.style.display = 'block';
+        // Show Android toast after a brief delay to ensure video starts
+        setTimeout(() => {
+          showAndroidToast();
+        }, 100);
+      }, 3000);
+    }, 6000);
+  }
+
+  // Update status bar based on demo version
+  function updateStatusBar(versionKey) {
+    if (versionKey.includes('android')) {
+      statusBarImg.src = 'Assets/Andriod_status_Bar.png';
+      homeIndicatorPill.style.opacity = '0';
+      loadingText.style.display = 'none';
+      julianaLoadingScreen.style.padding = '26px';
+      julianaLoadingScreen.style.gap = '0';
+      julianaLoadingScreen.style.width = 'auto';
+      julianaLoadingScreen.style.height = 'auto';
+    } else {
+      statusBarImg.src = 'Assets/iOS_Status Bar.png';
+      homeIndicatorPill.style.opacity = '1';
+      loadingText.style.display = 'block';
+      julianaLoadingScreen.style.padding = '0';
+      julianaLoadingScreen.style.gap = '12px';
+      julianaLoadingScreen.style.width = '100px';
+      julianaLoadingScreen.style.height = '106px';
+    }
+  }
+
+  function updateProfilePictureToggle(config) {
+    if (config.profilePicLocked) {
+      profilePictureToggle.checked = config.profilePicDefault;
+      profilePictureToggleLabel.classList.add('disabled');
+    } else {
+      profilePictureToggleLabel.classList.remove('disabled');
+      // Load saved state or use default
+      const saved = localStorage.getItem(`profilePic-${currentDemoVersion}`);
+      profilePictureToggle.checked = saved !== null ? saved === 'true' : config.profilePicDefault;
+    }
+  }
+
+  function updateSummary(config) {
+    document.getElementById('summaryTrigger').textContent = config.trigger;
+    document.getElementById('summarySwitch').textContent = config.switchTo;
+    document.getElementById('summaryToast').textContent = config.toast;
+    document.getElementById('summaryProfile').textContent = config.profilePic;
+    document.getElementById('summaryProfile').style.color = config.profilePicLocked ? '#999' : '#333';
+  }
+
+  // Restore saved settings on page load
+  const savedDemoVersion = localStorage.getItem('selectedDemoVersion');
+  if (savedDemoVersion && demoVersions[savedDemoVersion]) {
+    currentDemoVersion = savedDemoVersion;
+  }
+
+  // Initialize
+  initializeDemoVersions();
+  updateProfilePictureToggle(demoVersions[currentDemoVersion]);
+  updateSummary(demoVersions[currentDemoVersion]);
+  updateStatusBar(currentDemoVersion);
+  applyFullSettings();
+
+  // Apply full settings to the page
+  function applyFullSettings() {
+    const config = demoVersions[currentDemoVersion];
+
+    if (config) {
+      // Determine which toast to show based on profile picture setting
+      let showWithProfile;
+      if (config.profilePicLocked) {
+        showWithProfile = config.profilePicDefault;
+      } else {
+        const saved = localStorage.getItem(`profilePic-${currentDemoVersion}`);
+        showWithProfile = saved !== null ? saved === 'true' : config.profilePicDefault;
+      }
+
+      // Update toast display (show/hide toast elements)
+      if (showWithProfile) {
+        toastWithProfile.style.display = 'block';
+        toastWithoutProfile.style.display = 'none';
+      } else {
+        toastWithProfile.style.display = 'none';
+        toastWithoutProfile.style.display = 'block';
+      }
+
+      // Hide panel if this version doesn't show it
+      if (!config.showPanel) {
+        panelModal.classList.remove('active');
+        panelOverlay.classList.remove('active');
+      }
+    }
+  }
+
+  // Profile data
+  const profiles = {
+    stephy: {
+      name: 'Stephy',
+      username: '@Stephy0303.ana',
+      avatar: 'Assets/4/主态/Stephy.png',
+      following: '5648',
+      followers: '12989',
+      likes: '2.5K',
+      bio: 'New York',
+      school: 'UCLA',
+      contentImage: 'Assets/Profile_Before_Switch_Bottom Content.png',
+      hasEditButton: true
+    },
+    juliana: {
+      name: 'Juliana',
+      username: '@ju1ie.ana',
+      avatar: 'Assets/Profile_Imgs/Profile_Imgs/Juliana.png',
+      following: '319',
+      followers: '392',
+      likes: '29.5K',
+      bio: 'LA | Bay Area',
+      school: 'University of Irvine',
+      contentImage: 'Assets/Profile_After_Switch_Bottom Content.png',
+      hasEditButton: false
+    }
+  };
+
+  // Function to show toast
+  function showToast() {
+    const config = demoVersions[currentDemoVersion];
+    if (!config || !config.showToast) {
+      return;
+    }
+    const activeToast = profilePictureToggle.checked ? toastWithProfile : toastWithoutProfile;
+    activeToast.style.display = 'block';
+    // Appear animation: scale 0.8→1 (350ms spring), opacity 0→1 (150ms linear)
+    activeToast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
+    setTimeout(() => {
+      activeToast.style.opacity = '1';
+      activeToast.style.transform = 'translateX(-50%) scale(1)';
+    }, 10);
+    // Disappear animation: scale 1→0.8 (350ms spring), opacity 1→0 (100ms linear)
+    setTimeout(() => {
+      activeToast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
+      activeToast.style.opacity = '0';
+      activeToast.style.transform = 'translateX(-50%) scale(0.8)';
+    }, 3150);
+    // Hide after animation completes
+    setTimeout(() => {
+      activeToast.style.display = 'none';
+    }, 3600);
+  }
+
+  // Function to show Android toast
+  function showAndroidToast() {
+    const toast = currentDemoVersion === 'android-longpress' ? androidToastWithoutProfile : androidToast;
+    toast.style.display = 'block';
+    // Appear animation: scale 0.8→1 (350ms spring), opacity 0→1 (150ms linear)
+    toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
+    setTimeout(() => {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) scale(1)';
+    }, 10);
+    // Disappear animation: scale 1→0.8 (350ms spring), opacity 1→0 (100ms linear)
+    setTimeout(() => {
+      toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) scale(0.8)';
+    }, 3150);
+    // Hide after animation completes
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 3600);
+  }
+
+  // Function to switch profile
+  function switchProfile(profileKey) {
+    const profile = profiles[profileKey];
+    document.querySelector('.avatar-img').src = profile.avatar;
+    document.querySelector('.name-text').textContent = profile.name;
+    document.querySelector('.username').textContent = profile.username;
+    document.querySelectorAll('.stat-value')[0].textContent = profile.following;
+    document.querySelectorAll('.stat-value')[1].textContent = profile.followers;
+    document.querySelectorAll('.stat-value')[2].textContent = profile.likes;
+    document.querySelector('.bio-text').textContent = profile.bio;
+    document.querySelector('.bio-link').textContent = profile.school;
+
+    const contentImg = document.querySelector('img[alt="Profile Content"]');
+    contentImg.src = profile.contentImage;
+
+    // Handle action buttons row visibility
+    const actionButtonsRow = document.getElementById('actionButtonsRow');
+    if (!profile.hasEditButton) {
+      actionButtonsRow.style.display = 'flex';
+    } else {
+      actionButtonsRow.style.display = 'none';
+    }
+
+    // Handle Juliana content loading animation
+    if (profileKey === 'juliana') {
+      const contentImage = document.getElementById('contentImage');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const julianaContent2 = document.getElementById('juliana_Content2');
+
+      // Show Juliana_Content1.png and loading overlay
+      contentImage.src = 'Assets/Juliana_Content1.png';
+      loadingOverlay.style.display = 'flex';
+      loadingOverlay.style.opacity = '1';
+      julianaContent2.style.display = 'none';
+
+      // After 2 seconds, hide loading and show Juliana_Content2.png
+      setTimeout(() => {
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+          julianaContent2.style.display = 'block';
+
+          // For Android versions, show FYP page after 1.5 seconds
+          if (currentDemoVersion.includes('android')) {
+            setTimeout(() => {
+              // Hide profile content and show FYP page with video instantly
+              scrollContent.style.display = 'none';
+              fypVideo.src = 'Assets/Androi_FYP_Video1.MOV';
+              fypVideo.style.display = 'block';
+              androidFYPPage.style.display = 'flex';
+              androidFYPPage.style.flexDirection = 'column';
+              androidFYPPage.style.alignItems = 'center';
+              androidFYPPage.style.justifyContent = 'center';
+              // Start the FYP transition sequence
+              handleFYPTransition();
+            }, 1500);
+          }
+        }, 300);
+      }, 2000);
+
+      showToast();
+    }
+  }
+
+  // Open panel on name row click
+  if (nameRowClickArea) {
+    nameRowClickArea.addEventListener('click', function() {
+      const config = demoVersions[currentDemoVersion];
+      if (config && config.showPanel) {
+        panelModal.classList.add('active');
+        panelOverlay.classList.add('active');
+      }
+    });
+  }
+
+  // Account row click handlers
+  accountRowJuliana.addEventListener('click', function() {
+    accountRowJuliana.style.backgroundColor = '#F5F5F5';
+    // Close panel and show loading screen simultaneously
+    closePanelModal();
+    julianaLoadingScreen.style.visibility = 'visible';
+    setTimeout(() => {
+      julianaLoadingScreen.style.opacity = '1';
+    }, 10);
+    // After 2 seconds, hide loading screen and switch profile
+    setTimeout(() => {
+      julianaLoadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        julianaLoadingScreen.style.visibility = 'hidden';
+        switchProfile('juliana');
+        accountRowJuliana.style.backgroundColor = '';
+      }, 300);
+    }, 2000);
+  });
+
+  accountRowChristina.addEventListener('click', function() {
+    accountRowChristina.style.backgroundColor = '#F5F5F5';
+    setTimeout(() => {
+      accountRowChristina.style.backgroundColor = '';
+    }, 200);
+  });
+
+  // Avatar double-click handler - disabled for iOS/Android doubleclick versions
+  // (use bottom nav profile icon hotspot instead)
+  avatarWrapper.addEventListener('dblclick', function() {
+    // Double-click on avatar disabled - use profile icon in bottom nav
+  });
+
+  // Profile Icon Hotspot double-click handler for iOS and Android Doubleclick versions
+  profileIconHotspot.addEventListener('dblclick', function() {
+    if (currentDemoVersion === 'ios-doubleclick' || currentDemoVersion === 'android-doubleclick') {
+      julianaLoadingScreen.style.visibility = 'visible';
+      setTimeout(() => {
+        julianaLoadingScreen.style.opacity = '1';
+      }, 10);
+      setTimeout(() => {
+        julianaLoadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          julianaLoadingScreen.style.visibility = 'hidden';
+          switchProfile('juliana');
+        }, 300);
+      }, 2000);
+    }
+  });
+
+  // Bottom Nav Bar double-click handler for iOS versions
+  bottomNavBar.addEventListener('dblclick', function() {
+    if (currentDemoVersion === 'ios-longpress' || currentDemoVersion === 'ios-doubleclick') {
+      julianaLoadingScreen.style.visibility = 'visible';
+      setTimeout(() => {
+        julianaLoadingScreen.style.opacity = '1';
+      }, 10);
+      setTimeout(() => {
+        julianaLoadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          julianaLoadingScreen.style.visibility = 'hidden';
+          switchProfile('juliana');
+        }, 300);
+      }, 2000);
+    }
+  });
+
+  // Close panel
+  function closePanelModal() {
+    panelModal.classList.remove('active');
+    panelOverlay.classList.remove('active');
+  }
+
+  // Close on overlay click
+  panelOverlay.addEventListener('click', closePanelModal);
+
+  // Toast profile toggle
+  profilePictureToggle.addEventListener('change', function() {
+    if (this.checked) {
+      toastWithProfile.style.display = 'block';
+      toastWithoutProfile.style.display = 'none';
+    } else {
+      toastWithProfile.style.display = 'none';
+      toastWithoutProfile.style.display = 'block';
+    }
+  });
+
+  // Profile picture toggle handler
+  profilePictureToggle.addEventListener('change', function() {
+    if (!demoVersions[currentDemoVersion].profilePicLocked) {
+      localStorage.setItem(`profilePic-${currentDemoVersion}`, this.checked);
+    }
+  });
+
+  // Start button click handler
+  startBtn.addEventListener('click', function() {
+    // Save settings for the current demo version
+    localStorage.setItem('selectedDemoVersion', currentDemoVersion);
+    if (!demoVersions[currentDemoVersion].profilePicLocked) {
+      localStorage.setItem(`profilePic-${currentDemoVersion}`, profilePictureToggle.checked);
+    }
+
+    // Apply settings immediately
+    applyFullSettings();
+
+    // Reload to show the selected settings
+    setTimeout(() => {
+      location.reload();
+    }, 300);
+  });
+</script>
+
+</body>
+</html>
