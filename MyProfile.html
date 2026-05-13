@@ -848,6 +848,9 @@
     <img src="Assets/Bottom Nav Bar.png" alt="Bottom Nav Bar" />
   </div>
 
+  <!-- 气泡不避让 Tooltip -->
+  <img id="bubbleTooltip" src="Assets/气泡红点.png" alt="bubble" style="position: absolute; bottom: 87px; left: 248px; width: 51px; height: 46px; display: none; opacity: 0; transform: scale(0.3); z-index: 1500; pointer-events: none;" />
+
   <!-- Bottom Toast (With Profile) -->
   <div id="bottomToastWithProfile" style="position: absolute; bottom: 91px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; display: none; z-index: 2000; pointer-events: none; width: 374px;">
     <div id="bottomToastWithProfileInner" style="position: relative; display: flex; flex-direction: row; align-items: center; gap: 10px; padding: 12px 16px 12px 12px; border-radius: 14px; box-shadow: 0px 12px 25px rgba(0,0,0,0.15); overflow: hidden; width: 100%; backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); background-image: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.1) 100%), linear-gradient(90deg, rgba(37,37,37,0.7) 0%, rgba(37,37,37,0.7) 100%);">
@@ -1061,6 +1064,23 @@
 
   <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
 
+  <!-- Toast Duration Control -->
+  <div style="margin-bottom: 20px;">
+    <div style="font-size: 13px; font-weight: 600; color: #000; line-height: 1.3; margin-bottom: 10px;">Bottom toast duration</div>
+    <div style="display: flex; gap: 8px;">
+      <label style="flex: 1; display: flex; align-items: center; justify-content: center; height: 32px; border-radius: 8px; border: 1.5px solid #EEE; font-size: 13px; font-weight: 600; cursor: pointer; background: #fff;" id="toastDur2Label">
+        <input type="radio" name="toastDuration" id="toastDuration2" value="2" style="display:none;">
+        2s
+      </label>
+      <label style="flex: 1; display: flex; align-items: center; justify-content: center; height: 32px; border-radius: 8px; border: 1.5px solid #000; font-size: 13px; font-weight: 600; cursor: pointer; background: #000; color: #fff;" id="toastDur3Label">
+        <input type="radio" name="toastDuration" id="toastDuration3" value="3" checked style="display:none;">
+        3s
+      </label>
+    </div>
+  </div>
+
+  <div style="height: 1px; background: #EEE; margin-bottom: 20px;"></div>
+
   <!-- Section 4: Summary Info Box -->
   <div style="background: #F5F5F5; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 12px; line-height: 1.6;">
     <div style="font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px; font-size: 11px;">This demo will show</div>
@@ -1221,6 +1241,18 @@
       profilePicDefault: true,
       showToast: false,
       showPanel: true
+    },
+    'ios-bubble': {
+      name: 'iOS Demo气泡不避让',
+      platform: 'iOS',
+      trigger: 'Click / Double tap',
+      switchTo: 'Profile → Profile',
+      toast: 'Toast on top',
+      profilePic: 'User controlled',
+      profilePicLocked: false,
+      profilePicDefault: true,
+      showToast: true,
+      showPanel: true
     }
   };
 
@@ -1281,6 +1313,11 @@
   const scrollContent = document.querySelector('.scroll-content');
   const profileLoadingDurationSlider = document.getElementById('profileLoadingDurationSlider');
   const profileLoadingDurationLabel = document.getElementById('profileLoadingDurationLabel');
+  const bubbleTooltip = document.getElementById('bubbleTooltip');
+  const toastDuration2 = document.getElementById('toastDuration2');
+  const toastDuration3 = document.getElementById('toastDuration3');
+  const toastDur2Label = document.getElementById('toastDur2Label');
+  const toastDur3Label = document.getElementById('toastDur3Label');
 
   // Initialize demo version selector
   function initializeDemoVersions() {
@@ -1518,7 +1555,13 @@
   };
 
   // Function to show toast
+  // Get current bottom toast duration in ms (2s or 3s)
+  function getToastDurationMs() {
+    return toastDuration2.checked ? 2000 : 3000;
+  }
+
   function animateTopToast(el) {
+    const dur = getToastDurationMs();
     el.style.display = 'block';
     el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 150ms linear';
     setTimeout(() => {
@@ -1529,9 +1572,45 @@
       el.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
       el.style.opacity = '0';
       el.style.transform = 'translateX(-50%) scale(0.8)';
-    }, 3150);
-    setTimeout(() => { el.style.display = 'none'; }, 3600);
+    }, dur + 150);
+    setTimeout(() => { el.style.display = 'none'; }, dur + 600);
   }
+
+  // Show 气泡不避让 tooltip with TUX_spring_rapid animation
+  function showBubbleTooltip() {
+    const dur = getToastDurationMs();
+    // TUX_spring_rapid[1,850,48,0] approximated
+    const springRapid = 'cubic-bezier(0.2, 1.8, 0.4, 1)';
+    bubbleTooltip.style.display = 'block';
+    bubbleTooltip.style.transition = `transform 350ms ${springRapid}, opacity 150ms linear`;
+    setTimeout(() => {
+      bubbleTooltip.style.opacity = '1';
+      bubbleTooltip.style.transform = 'scale(1)';
+    }, 10);
+    // Disappear after toast duration
+    setTimeout(() => {
+      bubbleTooltip.style.transition = `transform 350ms ${springRapid}, opacity 150ms linear`;
+      bubbleTooltip.style.opacity = '0';
+      bubbleTooltip.style.transform = 'scale(0.3)';
+    }, dur + 150);
+    setTimeout(() => {
+      bubbleTooltip.style.display = 'none';
+    }, dur + 600);
+  }
+
+  // Wire up duration radio buttons
+  function updateDurationUI() {
+    const is2s = toastDuration2.checked;
+    toastDur2Label.style.background = is2s ? '#000' : '#fff';
+    toastDur2Label.style.color = is2s ? '#fff' : '#000';
+    toastDur2Label.style.border = is2s ? '1.5px solid #000' : '1.5px solid #EEE';
+    toastDur3Label.style.background = is2s ? '#fff' : '#000';
+    toastDur3Label.style.color = is2s ? '#000' : '#fff';
+    toastDur3Label.style.border = is2s ? '1.5px solid #EEE' : '1.5px solid #000';
+  }
+  toastDuration2.addEventListener('change', updateDurationUI);
+  toastDuration3.addEventListener('change', updateDurationUI);
+  updateDurationUI();
 
   function showToast() {
     const config = demoVersions[currentDemoVersion];
@@ -1594,6 +1673,8 @@
           loadingOverlay.style.display = 'none';
           julianaContent2.style.display = 'block';
           showToast(); // fires only after dual circles finish
+          // Show bubble tooltip for ios-bubble version independently
+          if (currentDemoVersion === 'ios-bubble') showBubbleTooltip();
         }, 300);
       }, loadingDurationMs);
     }
@@ -1751,9 +1832,10 @@
     }
   }
 
-  // Show bottom toast with motion spec animation + configurable delay
+  // Show bottom toast with motion spec animation + configurable delay + duration
   function showBottomToast() {
     const delayMs = Math.round(parseFloat(bottomToastDelaySlider.value) * 1000);
+    const dur = getToastDurationMs();
     const useProfile = profilePictureToggle.checked;
     const toast = useProfile ? bottomToastWithProfile : bottomToastWithoutProfile;
     setTimeout(() => {
@@ -1767,11 +1849,11 @@
         toast.style.transition = 'transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 100ms linear';
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(-50%) translateY(20px)';
-      }, 3150);
+      }, dur + 150);
       setTimeout(() => {
         toast.style.display = 'none';
         toast.style.transform = 'translateX(-50%) translateY(20px)';
-      }, 3600);
+      }, dur + 600);
     }, delayMs);
   }
 
